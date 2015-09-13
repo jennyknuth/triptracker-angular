@@ -1,11 +1,14 @@
-app.controller("TTController", ['$scope', function($scope){
+app.controller("TTController", ['$scope', 'userservice', function($scope, userservice){
   console.log('hello from TTController');
-  $scope.userId = 495653;
+  var users = userservice.query();
+  $scope.users = users
+  // $scope.userId = 495653;
+  // $scope.userId = 431094; //this will come from where? firebase?
+
 }])
 
 app.controller("UserController", ['$scope', 'dataservice', function($scope, dataservice){
-  console.log('hello from UserController');
-  var userTrips = dataservice.query(function() {
-      console.log(userTrips);
-    });
+  var userTrips = dataservice.query();
+  $scope.userTrips = userTrips
+  console.log(userTrips);
 }])

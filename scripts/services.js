@@ -1,4 +1,14 @@
-app.factory('dataservice', ["$http", "$q", "$resource", function ($http, $q, $resource) {
-  console.log("hello from dataservice");
-    return $resource('http://localhost:8080/api/users/495653')
+// dataservice gets all trips for current userId
+app.factory('dataservice', ["$resource", "$routeParams", function ($resource, $routeParams) {
+  // console.log("id?", $routeParams.id);
+    return $resource('http://localhost:8080/api/users/' + $routeParams.id)
 }]);
+
+// userservice gets all users
+app.factory('userservice', ["$resource", function ($resource) {
+  // console.log("id?", $routeParams.id);
+    return $resource('http://localhost:8080/api/users/')
+}]);
+
+
+// good tutorial on CRUD with $resource here: http://www.sitepoint.com/creating-crud-app-minutes-angulars-resource/
