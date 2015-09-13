@@ -4,9 +4,9 @@ app.config(function($routeProvider) {
         templateUrl: 'views/home.html',
         controller: 'TTController'
       })
-      .when('/:id/show', {
+      .when('/:id', {
         templateUrl: 'views/show.html',
-        controller: 'DashController'
+        controller: 'UserController'
       })
       .otherwise ({
         redirectTo: '/'
