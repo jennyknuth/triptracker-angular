@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="TripTracker">
 <head>
   <meta charset="UTF-8">
   <title>Trip Tracker</title>
   <link rel="stylesheet" href="stylesheets/app.css">
   <script src="scripts/angular/angular.js"></script>
   <script src="scripts/angular/angular-route.js"></script>
+  <script src="scripts/angular/angular-resource.min.js"></script>
 </head>
-<body>
-
+<body ng-controller="TTController">
+  Trip Tracker Online
   <div ng-view></div>
 
   <script src="scripts/app.js"></script>
