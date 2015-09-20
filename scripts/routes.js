@@ -4,11 +4,19 @@ app.config(function($routeProvider) {
         templateUrl: 'views/home.html',
         controller: 'TTController'
       })
+      .when('/parent/:id', {
+        templateUrl: 'views/parent.html',
+        controller: 'ParentController'
+      })
       .when('/:id', {
         templateUrl: 'views/show.html',
-        controller: 'UserController'
+        controller: 'StudentController'
       })
-      .otherwise ({
-        redirectTo: '/'
+      .when('/:id/edit', {
+        templateUrl: 'views/edit.html',
+        controller: 'CalendarController'
       })
+      // .otherwise ({
+      //   redirectTo: '/'
+      // })
 });

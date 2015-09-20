@@ -1,9 +1,14 @@
-<li>+ add a child (go to new.html)</li>
+<a href="#/new">+ add a student tracker (go to new.html)</a>
 
-<li>get child array, display each associated child</li>
+<li>get student array, display each associated student</li>
 
-<li>link each child to their show page (from there can add/edit trips)</li>
+<div ng-repeat="student in students">
+  hey
+  <a href="#/user/{{student.userId}}">{{student}}</a>
+</div>
 
-<li>add/edit trips in bulk for all children? (stretch)</li>
+<li>link each student to their show page (from there can add/edit trips)</li>
 
-<li>enable child to set up their own account (stretch)</li>
+<li>add/edit trips in bulk for all students? (stretch)</li>
+
+<li>enable student to set up their own account (stretch)</li>

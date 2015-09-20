@@ -1,7 +1,29 @@
-<h2>Users:</h2>
-<p>(replace this with a link to login or, if logged in, a link to 'my dashboard')</p>
-<li ng-repeat="user in users">
-  <a href="/#/{{user.userId}}">{{user.userId}}</a>
-</li>
+<h2>Home</h2>
+<h2>miles not driven {{totalDistance | number : 0 }}</h2>
+<h3>Add Parent User:</h3>
+<form ng-submit="newUser()">
+  <input type="text" ng-model="user.userId" placeholder="userId">
+  <!-- <input type="text" ng-model="user.type" placeholder="type"> -->
+  <input type="submit" value="submit">
+</form>
+
+<div>
+  <p>(replace this with a link to login or, if logged in, a link to 'my dashboard')</p>
+  <h2>Users:</h2>
+  <li ng-repeat="user in users | filter: { type: 'student'} | limitTo: 7 ">
+    <a href="/#/{{user.userId}}">student: {{user.userId}}</a>
+  </li>
+  <li ng-repeat="user in users | filter: { type: 'parent'}">
+    <a href="/#/parent/{{user.userId}}">parent user: {{user.userId}}</a>
+  </li>
+  <hr>
+</div>
+
+<div d3-example on-click="showDetailPanel(item)" data="data"></div>
+
+<p>{{detailItem}}</p>
 
 <p>cool interactive charts here, start with stacked bar chart</p>
+<li ng-repeat="trip in trips | limitTo: 10">
+  <a href="/#/trip/{{trip._id}}">{{trip}}</a>
+</li>

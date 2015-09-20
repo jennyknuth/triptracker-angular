@@ -1,14 +1,15 @@
 <p>show page</p>
 
-<a href="#/{{userId}}/edit.html">add/edit trips for this month</a>
+<a href="#/{{userId}}/edit">add/edit trips for this month</a>
 
-<h2>user: {{userId}}</h2>
+<h2>user: {{user.userId}} {{user.name}}</h2>
 <h3>custom directive chart of trips</h3>
 
 <p>{{userTrips.length}} total trips</p>
-<p>total distance = </p>
-<p>$ earned: </p>
+<p ng-show="studentPowerDistance > 0">total distance = {{studentPowerDistance | number:1 }} miles</p>
+<p>Current reward earned: {{reward | currency}}</p>
 
-<li ng-repeat="trip in userTrips">
+<li ng-repeat="trip in userTrips" ng-init="sumDistance(trip)">
   {{trip.type}}
+  {{trip.distance}}
 </li>
