@@ -1,1 +1,1 @@
-var app = angular.module("TripTracker", ['ngRoute', 'ngResource', 'd3']);
+var app = angular.module("TripTracker", ['ngRoute', 'ngResource', 'd3', 'angularMoment']);

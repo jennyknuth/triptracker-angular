@@ -86,7 +86,35 @@ app.controller("ParentController", ['$scope', '$routeParams', 'Trip', 'User', 'd
 
 }])
 app.controller("CalendarController", ['$scope', '$routeParams', 'Trip', 'User', 'dataservice', function($scope, $routeParams, Trip, User, dataservice){
-  console.log("hello from ParentController");
+  console.log("hello from CalendarController");
+
+  var cal = new Calendar(0); // start week on Monday
+
+  var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  // var dayNames = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+  var date = new Date()
+  var month = date.getMonth();
+  var year = date.getFullYear();
+
+  var weeks = cal.monthDays(year, month); // gets an array of arrays of the weeks
+
+  var days = []
+  weeks.forEach(function(week) {
+    for (var i = 0; i < week.length; i++) {
+      days.push(week[i])
+    }
+  })
+  $scope.month = monthNames[month]
+  $scope.days = days
+
+  console.log('days in month array: ', days);
+  console.log($scope.days);
+
+  // weeks.forEach(function (day) {
+  //   console.log('day from calendar', day);
+  //   // $scope.day = day
+  // })
+
   // $scope.userId = $routeParams.id;
 
   // $scope.trip = Trip.get(function({id: $routeParams.id}) {

@@ -1,3 +1,47 @@
 <h2>Calendar</h2>
 <li>create/edit/remove trips</li>
 <li>interactive calendar, custom directive</li>
+<h3>{{month}}</h3>
+<div class="day" ng-repeat="day in days track by $index">
+    <p ng-show="{{day}} > 0">{{day}}</p>
+    <div class="trip-type">
+      <form ng-show="{{day}} > 0" ng-model="trip.am">
+        <input type="radio" name="am" value="none" checked> none<br>
+        <input type="radio" name="am" value="carpool"> carpool<br>
+        <input type="radio" name="am" value="rtd"> rtd<br>
+        <input type="radio" name="am" value="school-bus"> school bus<br>
+        <input type="radio" name="am" value="walk"> walk<br>
+        <input type="radio" name="am" value="bike"> bike<br>
+        <input type="radio" name="am" value="skate"> skate/scoot<br>
+        <input type="radio" name="am" value="dw"> drive/walk<br>
+        <select >
+          <option value=".25">.25</option>
+          <option value=".5">.5</option>
+          <option value=".75">.75</option>
+          <option value="1">1</option>
+          <option value="1.25">1.25</option>
+          <option value="1.5">1.5</option>
+        </select>
+      </form>
+    </div>
+    <div class="trip-type">
+      <form ng-show="{{day}} > 0" ng-model="trip.pm">
+        <input type="radio" name="pm" value="none" checked> none<br>
+        <input type="radio" name="pm" value="carpool"> carpool<br>
+        <input type="radio" name="pm" value="rtd"> rtd<br>
+        <input type="radio" name="pm" value="school-bus"> school bus<br>
+        <input type="radio" name="pm" value="walk"> walk<br>
+        <input type="radio" name="pm" value="bike"> bike<br>
+        <input type="radio" name="pm" value="skate"> skate/scoot<br>
+        <input type="radio" name="pm" value="dw"> drive/walk<br>
+        <select >
+          <option value=".25">.25</option>
+          <option value=".5">.5</option>
+          <option value=".75">.75</option>
+          <option value="1">1</option>
+          <option value="1.25">1.25</option>
+          <option value="1.5">1.5</option>
+        </select>
+      </form>
+    </div>
+</div>
