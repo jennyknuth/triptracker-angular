@@ -1,5 +1,5 @@
-app.controller("TTController", ['$scope', '$route', 'User', 'Trip', 'dataservice', function($scope, $route, User, Trip, dataservice){
-  console.log('hello from TTController');
+app.controller("HomeController", ['$scope', '$route', 'User', 'Trip', 'dataservice', function($scope, $route, User, Trip, dataservice){
+  console.log('hello from HomeController');
 
   // get all users
   $scope.users = User.query( function (){
