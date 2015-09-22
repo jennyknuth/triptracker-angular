@@ -85,58 +85,69 @@ app.controller("ParentController", ['$scope', '$routeParams', 'Trip', 'User', 'd
 
 
 }])
-app.controller("CalendarController", ['$scope', '$routeParams', 'Trip', 'User', 'dataservice', function($scope, $routeParams, Trip, User, dataservice){
+app.controller("CalendarController", ['$scope', '$routeParams', 'Trip', 'UserTrip', 'calendarservice', function($scope, $routeParams, Trip, UserTrip, calendarservice){
   console.log("hello from CalendarController");
 
-  var cal = new Calendar(0); // start week on Monday
-
   var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  // var dayNames = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
   var date = new Date()
   var month = date.getMonth();
   var year = date.getFullYear();
+  // var month = 0;
+  // var year = 2014;
 
-  var weeks = cal.monthDays(year, month); // gets an array of arrays of the weeks
-
-  var days = []
-  weeks.forEach(function(week) {
-    for (var i = 0; i < week.length; i++) {
-      days.push(week[i])
-    }
-  })
+  $scope.days = calendarservice.getDays(month, year)
+  $scope.year = year
   $scope.month = monthNames[month]
-  $scope.days = days
-
-  console.log('days in month array: ', days);
-  console.log($scope.days);
-
-  // weeks.forEach(function (day) {
-  //   console.log('day from calendar', day);
-  //   // $scope.day = day
-  // })
-
+  $scope.maxTrips = calendarservice.maxTrips($scope.days)
+  console.log($scope);
   // $scope.userId = $routeParams.id;
 
   // $scope.trip = Trip.get(function({id: $routeParams.id}) {
   //   console.log('single trip', $scope.trip);
   // });
 
-  $scope.newTrip = function () {
-    // $scope.trip = new Trip(); //You can instantiate an instance of the resource
+  // updates a previous trip, adds a new trip
+  $scope.renewTrip = function (trip, day) {
+    var tripObj = {}
+    for (key in trip) {
+       tripObj.day_part = key
+    }
+    tripObj.userId = parseInt($routeParams.id)
+    tripObj.date = (month + 1) + "/" + day + "/" + year;
+    tripObj.type = trip[tripObj.day_part]
+    tripObj.dw_distance = ""
+    UserTrip.query({ id: 495653}, function(data) {
+      tripObj.distance = data[0].distance
+      tripObj.school = data[0].school;
+      console.log("trip to go into database: ", tripObj);
 
-    // $scope.trip.data = 'some data';
-    $scope.trip = '{trip object}'
+      function filterByDateTime(obj) {
+        if (obj.date === tripObj.date && obj.day_part === tripObj.day_part) {
+          return true;
+        } else {
+          return false;
+        }
+      }
 
-    Trip.save($scope.trip, function() {
-      //data saved. do something here.
-    }); //saves an entry. Assuming $scope.trip is the Trip object
+      // check UserTrips to see if trip at day/time already exists
+      if (data.filter(filterByDateTime).length > 0) {
+        console.log('found, go to update');
+      } else {
+        console.log('not found, new trip');
+        var trip = new Trip;
+        trip = tripObj
+        Trip.save(trip, function () {
+          console.log("trip saved to db: ", trip);
+        })
+      }
+    })
   }
 
   $scope.deleteTrip = function () {
     Trip.delete({ id: $scope.trip._id })
   }
 
-  $scope.updateTrip = function () {
+  $scope.updateTrip = function (trip) {
     $scope.trip = Trip.get({ id: $scope.trip._id }, function() {
       // $scope.trip is fetched from server and is an instance of Trip
       $scope.trip = '{something else in the object}';

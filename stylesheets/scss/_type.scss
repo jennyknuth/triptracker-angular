@@ -1,0 +1,47 @@
+html {font-size: 1em;}
+
+body {
+  // background-color: $blue;
+  font-family: Lato, sans-serif;
+  font-weight: 300;
+  line-height: 1.45;
+  color: black;
+}
+
+a {
+  color: gray;
+  text-decoration: none;
+}
+
+p {margin-bottom: 1.3em;}
+
+h1, h2, h4 {
+  margin-bottom: 0.5em;
+  font-weight: inherit;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2.074em;
+}
+
+header{
+  h1 {
+    top: 85px;
+    position: relative;
+    font-size: 2.074em;
+  }
+}
+
+h2 {
+  font-size: 1.728em;
+}
+
+h3 {
+  font-size: 1.44em;
+  line-height: 2;
+}
+
+h4 {font-size: 1.2em;}
+
+small, .font_small {font-size: 0.833em;}

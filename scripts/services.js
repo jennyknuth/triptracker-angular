@@ -9,10 +9,10 @@ app.factory('Trip', ["$resource", function ($resource) {
 
 // returns the UserTrip resource
 app.factory('UserTrip', ["$resource", function ($resource) {
-    return $resource('http://localhost:8080/api/trips/user/:id', { id: '@userId' });
+    return $resource('http://localhost:8080/api/trips/user/:id', { id: '@userId', date: '@date', dayPart: '@dayPart' });
 }]);
 
-// can get users, userTrips
+// returns the User resource
 app.factory('User', ["$resource", function ($resource) {
     return $resource('http://localhost:8080/api/users/:id', { id: '@userId', parentId: '@parentId' });
 }]);
@@ -57,6 +57,57 @@ app.factory('dataservice', ["$routeParams", "User", function ($routeParams, User
 
   return dataservice;
 }]);
+
+// calendarservice calculates dates to display on calendar
+app.factory('calendarservice', [ function () {
+  var calendarservice = {};
+  var cal = new Calendar(0);
+
+  var holidays = {
+    0: [1, 2, 3, 6, 20],
+    1: [14, 17],
+    2: [24, 25, 26, 27, 28],
+    3: [18, 21],
+    8: [7]
+  }
+
+  calendarservice.getDays = function (month, year) {
+    console.log('hello from calendarservice');
+    var weeks = cal.monthDays(year, month); // gets an array of arrays of the weeks
+    var days = []
+    weeks.forEach(function(week) { // gets an array of all of the day values in the month
+      for (var i = 0; i < week.length; i++) {
+        var dayObj = {}
+        // console.log('week[i]', week[i]);
+        dayObj.value = week[i]
+        dayObj.show = true;
+        // don't show weekends or holidays
+        if (i === 0 || i === week.length -1 || week[i] === 0 || holidays[month].indexOf(week[i]) >= 0) {
+          dayObj.show = false;
+          if (holidays[month].indexOf(week[i]) >= 0) {
+            dayObj.message = "NO SCHOOL"
+          }
+        }
+        days.push(dayObj)
+      }
+    })
+  return days
+  }
+
+  calendarservice.maxTrips = function (days) {
+    var trips = 0
+    days.forEach(function (day) {
+      if (day.show === true){
+        trips += 2
+      }
+    })
+    return trips
+  }
+
+  return calendarservice;
+}]);
+
+
 
 // // userservice gets all users
 // app.factory('userservice', ["$resource", function ($resource) {

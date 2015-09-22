@@ -4,6 +4,9 @@ app.config(function($routeProvider) {
         templateUrl: 'views/home.html',
         controller: 'HomeController'
       })
+      .when('/styleguide', {
+        templateUrl: 'views/styleguide.html'
+      })
       .when('/parent/:id', {
         templateUrl: 'views/parent.html',
         controller: 'ParentController'
@@ -16,6 +19,7 @@ app.config(function($routeProvider) {
         templateUrl: 'views/edit.html',
         controller: 'CalendarController'
       })
+
       // .otherwise ({
       //   redirectTo: '/'
       // })

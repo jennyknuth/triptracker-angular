@@ -1,0 +1,24 @@
+.day {
+  padding: .5em;
+  border-radius: 9px;
+  font-size: 12px;
+  display: block;
+  float: left;
+  height: 13vw;
+  width: 13vw;
+  background-color: darkgray;
+  border: 2px solid white;
+}
+
+.trip-type {
+  width: 45%;
+  display: inline-block;
+}
+
+.left {
+  float: left;
+}
+
+.clear {
+  clear: both;
+}
