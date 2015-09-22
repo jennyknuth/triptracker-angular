@@ -116,7 +116,7 @@ app.controller("CalendarController", ['$scope', '$routeParams', 'Trip', 'UserTri
     tripObj.date = (month + 1) + "/" + day + "/" + year;
     tripObj.type = trip[tripObj.day_part]
     tripObj.dw_distance = ""
-    UserTrip.query({ id: 495653}, function(data) {
+    UserTrip.query({ id: $routeParams.id}, function(data) {
       tripObj.distance = data[0].distance
       tripObj.school = data[0].school;
       console.log("trip to go into database: ", tripObj);
@@ -129,30 +129,39 @@ app.controller("CalendarController", ['$scope', '$routeParams', 'Trip', 'UserTri
         }
       }
 
+      var updateObj = data.filter(filterByDateTime)
+      console.log('entry to update', updateObj[0]._id);
       // check UserTrips to see if trip at day/time already exists
-      if (data.filter(filterByDateTime).length > 0) {
+      if (updateObj.length > 0) {
         console.log('found, go to update');
+        $scope.updateTrip(updateObj[0]._id, tripObj)
       } else {
         console.log('not found, new trip');
-        var trip = new Trip;
-        trip = tripObj
-        Trip.save(trip, function () {
-          console.log("trip saved to db: ", trip);
-        })
+        $scope.newTrip(tripObj)
       }
     })
   }
 
-  $scope.deleteTrip = function () {
+  $scope.newTrip = function (tripObj) {
+    var trip = new Trip();
+    trip = tripObj
+    Trip.save(trip, function () {
+      console.log("trip saved to db: ", trip);
+    })
+  }
+
+  $scope.deleteTrip = function (trip) {
     Trip.delete({ id: $scope.trip._id })
   }
 
-  $scope.updateTrip = function (trip) {
-    $scope.trip = Trip.get({ id: $scope.trip._id }, function() {
+  $scope.updateTrip = function (_id, tripObj) {
+    var trip = Trip.get({ id: _id }, function() {
       // $scope.trip is fetched from server and is an instance of Trip
-      $scope.trip = '{something else in the object}';
-      $scope.trip.$update(function() {
-        //updated in the backend
+      console.log('trip to update from server', trip);
+      console.log('new trip info to add', tripObj);
+      trip.data = tripObj;
+      trip.$update(function() {
+        console.log('trip updated');
       });
     });
   }

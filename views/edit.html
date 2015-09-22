@@ -11,16 +11,16 @@
       <div class="trip-type">
         <form>
           <input type="radio" name="am" value="none" checked> none<br>
-          <input type="radio" name="am" ng-model="trip.am" value="carpool" ng-click="newTrip(trip, day.value)"> carpool<br>
-          <input type="radio" name="am" ng-model="trip.am" value="rtd" ng-click="newTrip(trip, day.value)"> rtd<br>
-          <input type="radio" name="am" ng-model="trip.am" value="school-bus" ng-click="newTrip(trip, day.value)"> school bus<br>
-          <input type="radio" name="am" ng-model="trip.am" value="walk" ng-click="newTrip(trip, day.value)"> walk<br>
-          <input type="radio" name="am" ng-model="trip.am" value="bike" ng-click="newTrip(trip, day.value)"> bike<br>
-          <input type="radio" name="am" ng-model="trip.am" value="skate" ng-click="newTrip(trip, day.value)"> skate/scoot<br>
+          <input type="radio" name="am" ng-model="trip.am" value="carpool" ng-click="renewTrip(trip, day.value)"> carpool<br>
+          <input type="radio" name="am" ng-model="trip.am" value="rtd" ng-click="renewTrip(trip, day.value)"> rtd<br>
+          <input type="radio" name="am" ng-model="trip.am" value="school-bus" ng-click="renewTrip(trip, day.value)"> school bus<br>
+          <input type="radio" name="am" ng-model="trip.am" value="walk" ng-click="renewTrip(trip, day.value)"> walk<br>
+          <input type="radio" name="am" ng-model="trip.am" value="bike" ng-click="renewTrip(trip, day.value)"> bike<br>
+          <input type="radio" name="am" ng-model="trip.am" value="skate" ng-click="renewTrip(trip, day.value)"> skate/scoot<br>
           <input type="radio" name="am" ng-model="trip.am" value="dw" > drive/walk<br>
           <select ng-show="trip.am === 'dw'">
-            <option ng-model="trip.dw_dist" value="0" ng-click="newTrip(trip, day.value)">0</option>
-            <option ng-model="trip.dw_dist" value=".25" ng-click="newTrip(trip, day.value)">.25</option>
+            <option ng-model="trip.dw_dist" value="0">0</option>
+            <option ng-model="trip.dw_dist" value=".25">.25</option>
             <option ng-model="trip.dw_dist" value=".5">.5</option>
             <option ng-model="trip.dw_dist" value=".75">.75</option>
             <option ng-model="trip.dw_dist" value="1">1</option>
