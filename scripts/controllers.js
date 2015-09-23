@@ -155,9 +155,9 @@ app.controller("CalendarController", ['$scope', '$routeParams', 'Trip', 'UserTri
   }
 
   $scope.updateTrip = function (_id, tripObj) {
-    var trip = Trip.get({ id: _id }, function() {
+    trip = Trip.get({ id: _id }, function() {
       // $scope.trip is fetched from server and is an instance of Trip
-      console.log('trip to update from server', trip);
+      console.log('trip to update from server', $trip);
       console.log('new trip info to add', tripObj);
       trip.data = tripObj;
       trip.$update(function() {
