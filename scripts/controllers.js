@@ -89,10 +89,10 @@ app.controller("CalendarController", ['$scope', '$routeParams', '$http', '$route
 
   var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   var date = new Date()
-  var month = date.getMonth();
-  var year = date.getFullYear();
-  // var month = 0;
-  // var year = 2014;
+  // var month = date.getMonth();
+  // var year = date.getFullYear();
+  var month = 0;
+  var year = 2014;
 
   $scope.days = calendarservice.getDays(month, year)
 
@@ -117,24 +117,8 @@ app.controller("CalendarController", ['$scope', '$routeParams', '$http', '$route
       console.log($scope);
   })
 
-  $scope.setColor = function (type) {
-
-
-    var colorMap = {
-      // "none": "lightgray",
-      "rtd": "rgba(198,40,40, .5)",
-      "carpool": "rgba( 213, 0, 249, .5)",
-      "school bus": "rgba(255,193,7, .5)",
-      "drive/walk": "rgba(101,31,255, .5)",
-      "walk": "rgba(21,101,192, .5)",
-      "bike": "rgba(0,121,107, .5)",
-      "skate/scoot": "rgba(239,108,0, .5)"
-    }
-
-    console.log('color for morning', colorMap[type]);
-
-    return {'background-color': colorMap[type]}
-
+  $scope.nextMonth = function (month) {
+    month += 1
   }
 
   // option 1: send package to server, have server do logic if it is to create/edit/delete

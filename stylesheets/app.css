@@ -61,7 +61,7 @@ table {
   float: left;
   height: 13vw;
   width: 13vw;
-  background-color: lightgray;
+  background-color: rgba(153, 153, 153, 0.1);
   border: 2px solid white; }
 
 .trip-type {

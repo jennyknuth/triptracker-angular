@@ -4,7 +4,6 @@
 
 app.filter('colorMap', function () {
   return function (input) {
-    console.log(input);
     var color = {
       "rtd": "rgba(198,40,40, .5)",
       "carpool": "rgba( 213, 0, 249, .5)",
@@ -14,12 +13,12 @@ app.filter('colorMap', function () {
       "bike": "rgba(0,121,107, .5)",
       "skate": "rgba(239,108,0, .5)"
     }
-    return color[input]
+    return {'background-color': color[input]}
 
   };
 });
 
-app.filter('mapType', function () {
+app.filter('tripType', function () {
   return function (input) {
     var type = {
       "rtd": "rtd",

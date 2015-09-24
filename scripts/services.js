@@ -116,8 +116,6 @@ app.factory('calendarservice', [ function () {
 
     if (date === trip.date){
       //build day object
-      // console.log('found it!', day);
-      // console.log('found it!', trip);
       if (trip.day_part === 'am') { // map day_part to scope model
         day.am = trip.type;
         day.am_dw_distance = trip.dw_distance;
