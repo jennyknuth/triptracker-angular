@@ -117,24 +117,23 @@ app.controller("CalendarController", ['$scope', '$routeParams', '$http', '$route
       console.log($scope);
   })
 
-  $scope.set_color = function (day) {
+  $scope.setColor = function (type) {
 
-    var color1 = 'lightgray'
-    var color2 = 'lightgray'
 
     var colorMap = {
-      "rtd": "$red",
-      "bike": "$green"
+      // "none": "lightgray",
+      "rtd": "rgba(198,40,40, .5)",
+      "carpool": "rgba( 213, 0, 249, .5)",
+      "school bus": "rgba(255,193,7, .5)",
+      "drive/walk": "rgba(101,31,255, .5)",
+      "walk": "rgba(21,101,192, .5)",
+      "bike": "rgba(0,121,107, .5)",
+      "skate/scoot": "rgba(239,108,0, .5)"
     }
 
-    if (day.am) {
-      color1 = colorMap[day.am]
-    }
-    if (day.pm) {
-      color2 = colorMap[day.pm]
-    }
+    console.log('color for morning', colorMap[type]);
 
-    return {backgroundColor: "mix($red, $green)"}
+    return {'background-color': colorMap[type]}
 
   }
 

@@ -3,39 +3,49 @@
 <li>interactive calendar, custom directive</li>
 <h2>{{month}} {{year}}</h2>
 <h3>Maximum trips this month: {{maxTrips}} | Your trips this month: {{userTrips.length}}</h3>
+<div class="container">
+  <div class="calendar">
+    <div class="day" ng-repeat="day in days track by $index" ng-style="day.pm | colorMap">{{day}}</div>
+  </div>
 
-<div class="day" ng-repeat="day in days track by $index" ng-style="set_color(day)">
-    <p ng-show="day.value > 0" class="left">{{day.value}}</p>
-    <h4 class="clear" ng-show="day.message">  {{day.message}}</h4>
+  <div class="calendar">
+    <div class="day" ng-repeat="day in days track by $index" ng-style="setColor(day.am)">
+        <p ng-show="day.value > 0" class="left">{{day.value}}</p>
+        <h4 class="clear" ng-show="day.message">  {{day.message}}</h4>
 
-    <div class="clear" ng-show="day.show">
-      <div class="trip-type">
-        <form>
-          <label><input type="radio" name="am" ng-model="day.am" value="none" ng-click="deleteTrip(day.am_id)"> none<br>
-            </label>
-          <label ng-repeat="type in ['walk', 'bike', 'skate/scoot', 'carpool', 'school bus', 'rtd', 'drive/walk']">
-            <input type="radio" name="am" ng-model="day.am" ng-click="renewAmTrip(day)" value="{{type}}" > {{type}}<br>
-          </label>
-          <label ng-show="day.am === 'carpool' || day.am === 'school bus' || day.am === 'rtd' || day.am === 'drive/walk'"> dist
-          <select ng-model="day.am_dw_distance" ng-change="renewAmTrip(day)">
-            <option ng-repeat="value in [.25, .5, .75, 1, 1.25, 1.5]" value="{{value}}">{{value}}</option>
-          </select>
-          </label>
-        </form>
-      </div>
-      <div class="trip-type">
-        <form>
-          <label><input type="radio" name="pm" ng-model="day.pm" value="none" ng-click="deleteTrip(day.pm_id)"> none<br>
-            </label>
-          <label ng-repeat="type in ['walk', 'bike', 'skate/scoot', 'carpool', 'school bus', 'rtd', 'drive/walk']">
-            <input type="radio" name="pm" ng-model="day.pm" ng-click="renewPmTrip(day)" value="{{type}}" > {{type}}<br>
-          </label>
-          <label ng-show="day.pm === 'carpool' || day.pm === 'school bus' || day.pm === 'rtd' || day.pm === 'drive/walk'"> dist
-          <select ng-model="day.pm_dw_distance" ng-change="renewPmTrip(day)">
-            <option ng-repeat="value in [.25, .5, .75, 1, 1.25, 1.5]" value="{{value}}">{{value}}</option>
-          </select>
-          </label>
-        </form>
-      </div>
+        <div class="clear" ng-show="day.show">
+          <div class="trip-type">
+            <form>
+              <label><input type="radio" name="am" ng-model="day.am" value="none" ng-click="deleteTrip(day.am_id)"> none<br>
+                </label>
+              <label ng-repeat="type in ['walk', 'bike', 'skate', 'carpool', 'bus', 'rtd', 'dw']">
+                <input type="radio" name="am" ng-model="day.am" ng-click="renewAmTrip(day)" value="{{type}}" > {{type | mapType}}<br>
+              </label>
+              <label ng-show="day.am === 'carpool' || day.am === 'bus' || day.am === 'rtd' || day.am === 'dw'"> dist
+              <select ng-model="day.am_dw_distance" ng-change="renewAmTrip(day)">
+                <option ng-repeat="value in [.25, .5, .75, 1, 1.25, 1.5]" value="{{value}}">{{value}}</option>
+              </select>
+              </label>
+            </form>
+          </div>
+          <div class="trip-type">
+            <form>
+              <label><input type="radio" name="pm" ng-model="day.pm" value="none" ng-click="deleteTrip(day.pm_id)"> none<br>
+                </label>
+              <label ng-repeat="type in ['walk', 'bike', 'skate', 'carpool', 'bus', 'rtd', 'dw']">
+                <input type="radio" name="pm" ng-model="day.pm" ng-click="renewPmTrip(day)" value="{{type}}" > {{type | mapType}}<br>
+              </label>
+              <label ng-show="day.pm === 'carpool' || day.pm === 'school bus' || day.pm === 'rtd' || day.pm === 'drive/walk'"> dist
+              <select ng-model="day.pm_dw_distance" ng-change="renewPmTrip(day)">
+                <option ng-repeat="value in [.25, .5, .75, 1, 1.25, 1.5]" value="{{value}}">{{value}}</option>
+              </select>
+              </label>
+            </form>
+          </div>
+        </div>
     </div>
+  </div>
+
+
+
 </div>

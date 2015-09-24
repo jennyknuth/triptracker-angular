@@ -45,6 +45,14 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
+.container {
+  position: relative; }
+
+.calendar {
+  position: absolute;
+  top: 0;
+  left: 0; }
+
 .day {
   padding: .5em;
   border-radius: 9px;
@@ -53,7 +61,7 @@ table {
   float: left;
   height: 13vw;
   width: 13vw;
-  background-color: darkgray;
+  background-color: lightgray;
   border: 2px solid white; }
 
 .trip-type {
