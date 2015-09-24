@@ -57,6 +57,7 @@ table {
   border: 2px solid white; }
 
 .trip-type {
+  vertical-align: top;
   width: 45%;
   display: inline-block; }
 
@@ -80,7 +81,7 @@ a {
   text-decoration: none; }
 
 p {
-  margin-bottom: 1.3em; }
+  margin-bottom: .3em; }
 
 h1, h2, h4 {
   margin-bottom: 0.5em;

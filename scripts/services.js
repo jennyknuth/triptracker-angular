@@ -9,7 +9,11 @@ app.factory('Trip', ["$resource", function ($resource) {
 
 // returns the UserTrip resource
 app.factory('UserTrip', ["$resource", function ($resource) {
-    return $resource('http://localhost:8080/api/trips/user/:id', { id: '@userId', date: '@date', dayPart: '@dayPart' });
+    return $resource('http://localhost:8080/api/trips/user/:id', { id: '@userId'}, {
+      send: {
+        method: 'POST' // this method issues a POST request
+      }
+    });
 }]);
 
 // returns the User resource
@@ -102,6 +106,71 @@ app.factory('calendarservice', [ function () {
       }
     })
     return trips
+  }
+
+  calendarservice.buildDayObj = function (day, trip, date) {
+    day.date = date
+    day.userId = trip.userId
+    day.distance = trip.distance // need to pass these back to database
+    day.school = trip.school
+
+    if (date === trip.date){
+      //build day object
+      // console.log('found it!', day);
+      // console.log('found it!', trip);
+      if (trip.day_part === 'am') { // map day_part to scope model
+        day.am = trip.type;
+        day.am_dw_distance = trip.dw_distance;
+        day.am_id = trip._id
+      }
+      if (trip.day_part === 'pm') {
+        day.pm = trip.type;
+        day.pm_dw_distance = trip.dw_distance;
+        day.pm_id = trip._id
+      }
+    } else {
+      if (!day.am || !day.pm){
+        day.am = 'none';
+        day.pm = 'none';
+      }
+    }
+    return day
+  }
+
+
+  // map day model from scope back to trip model for db
+  calendarservice.makeAmTrip = function (day) {
+    var amTrip = {};
+    if (day.am) {
+      amTrip.day_part = 'am';
+      amTrip.type = day.am;
+      if (day.am_dw_distance) {
+        amTrip.dw_distance = day.am_dw_distance
+      }
+    }
+    amTrip.id = day.am_id
+    amTrip.date = day.date
+    amTrip.distance = day.distance
+    amTrip.school = day.school
+    amTrip.userId = day.userId
+    return amTrip;
+  }
+
+  calendarservice.makePmTrip = function (day) {
+    var pmTrip = {}
+    if (day.pm) {
+      pmTrip.day_part = 'pm';
+      pmTrip.type = day.pm;
+      if (day.pm_dw_distance) {
+        pmTrip.dw_distance = day.pm_dw_distance
+      }
+    }
+    pmTrip.id = day.pm_id
+    pmTrip.date = day.date
+    pmTrip.distance = day.distance
+    pmTrip.school = day.school
+    pmTrip.userId = day.userId
+    return pmTrip;
   }
 
   return calendarservice;

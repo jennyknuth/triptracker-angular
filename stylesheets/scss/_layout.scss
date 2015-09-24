@@ -8,9 +8,11 @@
   width: 13vw;
   background-color: darkgray;
   border: 2px solid white;
+  // background-color: mix($red, $yellow);
 }
 
 .trip-type {
+  vertical-align: top;
   width: 45%;
   display: inline-block;
 }
