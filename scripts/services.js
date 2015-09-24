@@ -39,10 +39,11 @@ app.factory('dataservice', ["$routeParams", "User", function ($routeParams, User
   dataservice.studentPowerDistance = function (trips) {
     var sum = 0
     trips.forEach(function (trip){
-      if (trip.type === 'walk' || trip.type === 'bike' || trip.type === 'drive and drop' || trip.type === 'skate/scoot')
-      sum += (trip.distance * 1)
+      if (trip.type === 'walk' || trip.type === 'bike' || trip.type === 'skate'){
+        sum += (trip.distance * 1)
+      }
+      sum += trip.dw_distance
     })
-    console.log(sum);
     return sum;
   }
 
@@ -72,14 +73,22 @@ app.factory('calendarservice', [ function ( ) {
     1: [14, 17],
     2: [24, 25, 26, 27, 28],
     3: [18, 21],
-    8: [7]
+    4: [],
+    5: [],
+    6: [],
+    7: [],
+    8: [7],
+    9: [12],
+    10: [23,24,25,26,27],
+    11: [21,22,23,24,25,28,29,30,31]
   }
 
   calendarservice.getDays = function (month, year) {
     console.log('hello from calendarservice');
     var weeks = cal.monthDays(year, month); // gets an array of arrays of the weeks
     var days = []
-    weeks.forEach(function(week) { // gets an array of all of the day values in the month
+    // get an array of all of the day values in the month
+    weeks.forEach(function(week) {
       for (var i = 0; i < week.length; i++) {
         var dayObj = {}
         // console.log('week[i]', week[i]);
@@ -134,26 +143,6 @@ app.factory('calendarservice', [ function ( ) {
     }
     return day
   }
-
-  // BUILD CALENDAR from user's trips in database:
-  // calendarservice.buildCalendar = function (month, year) {
-  //   // BUILD CALENDAR from user's trips in database:
-  //   $scope.userTrips = UserTrip.query({id: parseInt($routeParams.id)}, function(){
-  //     // need to calculate user trips in current period with a service
-  //
-  //     // iterate over days
-  //     $scope.days.forEach(function (day) {
-  //       var date = (month + 1) + "/" + day.value + "/" + year
-  //
-  //       // Build day object from user trips
-  //       // remember to maintain this day object
-  //       $scope.userTrips.forEach(function(trip) {
-  //         calendarservice.buildDayObj(day, trip, date)
-  //       })
-  //     })
-  //       console.log($scope);
-  //   })
-  // }
 
   // map day model from scope back to trip model for db
   calendarservice.makeAmTrip = function (day) {
