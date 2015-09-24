@@ -89,36 +89,43 @@ app.controller("CalendarController", ['$scope', '$routeParams', '$http', '$route
 
   var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   var date = new Date()
-  // var month = date.getMonth();
-  // var year = date.getFullYear();
-  var month = 0;
-  var year = 2014;
+  // $scope.month = date.getMonth();
+  // $scope.year = date.getFullYear();
+  $scope.month = 0;
+  $scope.year = 2014;
 
-  $scope.days = calendarservice.getDays(month, year)
 
-  $scope.year = year
-  $scope.month = monthNames[month]
+  $scope.days = calendarservice.getDays($scope.month, $scope.year)
+  // $scope.year = year
+  // $scope.monthName = monthNames[$scope.month]
   $scope.maxTrips = calendarservice.maxTrips($scope.days)
 
-  // BUILD CALENDAR from user's trips in database:
-  $scope.userTrips = UserTrip.query({id: parseInt($routeParams.id)}, function(){
-    // need to calculate user trips in current period with a service
 
-    // iterate over days
-    $scope.days.forEach(function (day) {
-      var date = (month + 1) + "/" + day.value + "/" + year
+  $scope.buildCalendar = function (month, year) {
+    // BUILD CALENDAR from user's trips in database:
+    $scope.userTrips = UserTrip.query({id: parseInt($routeParams.id)}, function(){
+      // need to calculate user trips in current period with a service
 
-      // Build day object from user trips
-      // remember to maintain this day object
-      $scope.userTrips.forEach(function(trip) {
-        calendarservice.buildDayObj(day, trip, date)
+      // iterate over days
+      $scope.days.forEach(function (day) {
+        var date = ($scope.month + 1) + "/" + day.value + "/" + $scope.year
+
+        // Build day object from user trips
+        // remember to maintain this day object
+        $scope.userTrips.forEach(function(trip) {
+          calendarservice.buildDayObj(day, trip, date)
+        })
       })
+        console.log($scope);
     })
-      console.log($scope);
-  })
+  }
 
-  $scope.nextMonth = function (month) {
-    month += 1
+  $scope.buildCalendar($scope.month, $scope.year)
+
+  $scope.nextMonth = function () {
+    $scope.month += 1
+    $scope.days = calendarservice.getDays($scope.month, $scope.year)
+    $scope.buildCalendar($scope.month, $scope.year)
   }
 
   // option 1: send package to server, have server do logic if it is to create/edit/delete

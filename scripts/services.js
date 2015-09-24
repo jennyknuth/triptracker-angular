@@ -63,7 +63,7 @@ app.factory('dataservice', ["$routeParams", "User", function ($routeParams, User
 }]);
 
 // calendarservice calculates dates to display on calendar
-app.factory('calendarservice', [ function () {
+app.factory('calendarservice', [ function ( ) {
   var calendarservice = {};
   var cal = new Calendar(0);
 
@@ -135,6 +135,25 @@ app.factory('calendarservice', [ function () {
     return day
   }
 
+  // BUILD CALENDAR from user's trips in database:
+  // calendarservice.buildCalendar = function (month, year) {
+  //   // BUILD CALENDAR from user's trips in database:
+  //   $scope.userTrips = UserTrip.query({id: parseInt($routeParams.id)}, function(){
+  //     // need to calculate user trips in current period with a service
+  //
+  //     // iterate over days
+  //     $scope.days.forEach(function (day) {
+  //       var date = (month + 1) + "/" + day.value + "/" + year
+  //
+  //       // Build day object from user trips
+  //       // remember to maintain this day object
+  //       $scope.userTrips.forEach(function(trip) {
+  //         calendarservice.buildDayObj(day, trip, date)
+  //       })
+  //     })
+  //       console.log($scope);
+  //   })
+  // }
 
   // map day model from scope back to trip model for db
   calendarservice.makeAmTrip = function (day) {
