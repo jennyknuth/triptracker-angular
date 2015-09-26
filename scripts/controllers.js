@@ -21,17 +21,6 @@ app.controller("HomeController", ['$scope', '$route', 'User', 'Trip', 'dataservi
         $scope.monthData.push(monthTripObj)
       }
     }
-    console.log($scope.monthData);
-
-
-
-    // var monthTrips = dataservice.getMonthTrips($scope.trips, 3)
-    // console.log('month Trips', monthTrips);
-    // var monthTripTypeObj = dataservice.countTripTypes(monthTrips)
-    // monthTripTypeObj.month = 'Apr'
-    // console.log(monthTripTypeObj);
-
-
 
     $scope.data = [
       {name: $scope.trips[0].userId, score: $scope.trips[0].distance},
@@ -45,6 +34,7 @@ app.controller("HomeController", ['$scope', '$route', 'User', 'Trip', 'dataservi
     //   testTrips.push($scope.trips[i])
     // }
     // console.log(testTrips);
+  console.log($scope.monthData);
   })
 
   $scope.newUser = function () {
@@ -122,9 +112,6 @@ app.controller("CalendarController", ['$scope', '$routeParams', '$http', '$route
   // $scope.month = 0;
   // $scope.year = 2014;
 
-
-
-
   $scope.buildCalendar = function (month, year) {
     // BUILD CALENDAR from user's trips in database:
     $scope.days = calendarservice.getDays($scope.month, $scope.year)
@@ -198,7 +185,7 @@ app.controller("CalendarController", ['$scope', '$routeParams', '$http', '$route
   //     console.log('trip to update from server', trip);
   //     console.log('new trip info to add', tripObj);
   //     trip.type = tripObj.type;
-  //     trip.dw_distance = tripObj.dw_distance;
+  //     trip.dwDistance = tripObj.dwDistance;
   //     trip.$update(function() {
   //       console.log('trip updated');
   //     });

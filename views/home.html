@@ -19,13 +19,14 @@
   <hr>
 </div>
 <p>cool interactive charts here, start with stacked bar chart</p>
-<p>WOOH</p>
 
 <div d3-example on-click="showDetailPanel(item)" data="data"></div>
+<!-- <div d3-example-two on-click="showDetailPanel(item)" data="data"></div> -->
 <p>{{detailItem}}</p>
 
-<div d3-stacked-bar data="monthData"></div>
+<div d3-stacked-bar on-click="showDetailPanel(item)" data="monthData"></div>
+<p>WOOH</p>
 
-<li ng-repeat="trip in trips | limitTo: 10">
+<li ng-repeat="trip in trips | limitTo: 5">
   <a href="/#/trip/{{trip._id}}">{{trip}}</a>
 </li>

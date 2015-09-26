@@ -67,8 +67,8 @@ app.factory('dataservice', ["$routeParams", "User", function ($routeParams, User
         if (trip.type === 'walk' || trip.type === 'bike' || trip.type === 'skate'){
           sum += (trip.distance * 1)
         }
-        if (trip.dw_distance) {
-          sum += (trip.dw_distance * 1)
+        if (trip.dwDistance) {
+          sum += (trip.dwDistance * 1)
         }
     })
       return sum;
@@ -153,14 +153,14 @@ app.factory('calendarservice', [ function ( ) {
 
     if (date === trip.date){
       //build day object
-      if (trip.day_part === 'am') { // map day_part to scope model
+      if (trip.dayPart === 'am') { // map dayPart to scope model
         day.am = trip.type;
-        day.am_dw_distance = trip.dw_distance;
+        day.am_dwDistance = trip.dwDistance;
         day.am_id = trip._id
       }
-      if (trip.day_part === 'pm') {
+      if (trip.dayPart === 'pm') {
         day.pm = trip.type;
-        day.pm_dw_distance = trip.dw_distance;
+        day.pm_dwDistance = trip.dwDistance;
         day.pm_id = trip._id
       }
     } else {
@@ -176,10 +176,10 @@ app.factory('calendarservice', [ function ( ) {
   calendarservice.makeAmTrip = function (day) {
     var amTrip = {};
     if (day.am) {
-      amTrip.day_part = 'am';
+      amTrip.dayPart = 'am';
       amTrip.type = day.am;
-      if (day.am_dw_distance) {
-        amTrip.dw_distance = day.am_dw_distance
+      if (day.am_dwDistance) {
+        amTrip.dwDistance = day.am_dwDistance
       }
     }
     amTrip.id = day.am_id
@@ -193,10 +193,10 @@ app.factory('calendarservice', [ function ( ) {
   calendarservice.makePmTrip = function (day) {
     var pmTrip = {}
     if (day.pm) {
-      pmTrip.day_part = 'pm';
+      pmTrip.dayPart = 'pm';
       pmTrip.type = day.pm;
-      if (day.pm_dw_distance) {
-        pmTrip.dw_distance = day.pm_dw_distance
+      if (day.pm_dwDistance) {
+        pmTrip.dwDistance = day.pm_dwDistance
       }
     }
     pmTrip.id = day.pm_id
