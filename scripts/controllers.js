@@ -10,12 +10,41 @@ app.controller("HomeController", ['$scope', '$route', 'User', 'Trip', 'dataservi
   $scope.trips = Trip.query( function () { //get data for home/splash page here!
     console.log('all trips:', $scope.trips);
     $scope.totalDistance = dataservice.totalDistance($scope.trips)
+
+    $scope.monthData = []
+
+    for (var i = 0; i < 12; i++) {
+      var tripsArr = dataservice.getMonthTrips($scope.trips, i)
+      if (tripsArr.length > 0) {
+        var monthTripObj = dataservice.countTripTypes(tripsArr)
+        monthTripObj.month = i
+        $scope.monthData.push(monthTripObj)
+      }
+    }
+    console.log($scope.monthData);
+
+
+
+    // var monthTrips = dataservice.getMonthTrips($scope.trips, 3)
+    // console.log('month Trips', monthTrips);
+    // var monthTripTypeObj = dataservice.countTripTypes(monthTrips)
+    // monthTripTypeObj.month = 'Apr'
+    // console.log(monthTripTypeObj);
+
+
+
     $scope.data = [
       {name: $scope.trips[0].userId, score: $scope.trips[0].distance},
       {name: $scope.trips[55543].userId, score: $scope.trips[55543].distance},
       {name: $scope.trips[5543].userId, score: $scope.trips[5543].distance},
       {name: $scope.trips[543].userId, score: $scope.trips[543].distance}
     ];
+
+    // var testTrips = []
+    // for (var i = 0; i < 100; i++) {
+    //   testTrips.push($scope.trips[i])
+    // }
+    // console.log(testTrips);
   })
 
   $scope.newUser = function () {

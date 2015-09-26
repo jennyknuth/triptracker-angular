@@ -36,23 +36,51 @@ app.factory('dataservice', ["$routeParams", "User", function ($routeParams, User
     return sum;
   }
 
+  dataservice.countTripTypes = function (trips) {
+    return trips.reduce(function (obj, trip) {
+      obj[trip.type] = (obj[trip.type] || 0) + 1;
+      return obj
+    }, {})
+  }
+
+  dataservice.getMonthTrips = function (trips, month) {
+   return trips.filter(function (trip) {
+     if (trip.date) {
+       return ((month + 1)===parseInt(trip.date.split('/')[0]))
+     }
+   })
+  }
+
+  dataservice.typeTotal = function (trips) {
+    var typeCount = trips.reduce(function (obj, trip) {
+      if (trip.type) {
+        obj[trip.type] = (obj[trip.type] || 0) + 1;
+        return obj
+      }
+    }, {})
+    return typeCount
+  }
+
   dataservice.studentPowerDistance = function (trips) {
     var sum = 0
     trips.forEach(function (trip){
-      if (trip.type === 'walk' || trip.type === 'bike' || trip.type === 'skate'){
-        sum += (trip.distance * 1)
-      }
-      sum += trip.dw_distance
+        if (trip.type === 'walk' || trip.type === 'bike' || trip.type === 'skate'){
+          sum += (trip.distance * 1)
+        }
+        if (trip.dw_distance) {
+          sum += (trip.dw_distance * 1)
+        }
     })
-    return sum;
+      return sum;
   }
 
   dataservice.calculateReward = function (trips) {
     // calculate reward = total number of trips / 4 + total distance / 10 + bonus
     var dist = dataservice.studentPowerDistance(trips);
-    console.log('distance: ', dist);
+    console.log('distance from calculate reward: ', dist);
+    console.log('number of trips to calculate reward: ', trips.length);
     var bonus = 0;
-    if (trips.length === 36) {
+    if (trips.length === 36) { // MAKE THIS DYNAMIC!!!!
       bonus = 2;
     }
     var reward = (trips.length/4) + (dist/10) + bonus;

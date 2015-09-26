@@ -22,8 +22,9 @@
 <p>WOOH</p>
 
 <div d3-example on-click="showDetailPanel(item)" data="data"></div>
-
 <p>{{detailItem}}</p>
+
+<div d3-stacked-bar data="monthData"></div>
 
 <li ng-repeat="trip in trips | limitTo: 10">
   <a href="/#/trip/{{trip._id}}">{{trip}}</a>
