@@ -47,6 +47,20 @@ table {
 
 body {
   background-color: white;
+  width: 100%; }
+
+article {
+  margin-left: 100px;
+  width: 50%;
+  padding: 2em;
+  position: relative; }
+  article form {
+    text-align: right; }
+  article .add {
+    text-align: right;
+    float: right; }
+
+.stacked {
   text-align: center; }
 
 .container {
@@ -86,8 +100,7 @@ html {
 body {
   font-family: Lato, sans-serif;
   font-weight: 300;
-  line-height: 1.45;
-  color: white; }
+  line-height: 1.45; }
 
 a {
   color: gray;
@@ -125,14 +138,11 @@ small, .font_small {
 form {
   text-align: left; }
 
-#chart {
-  margin: 3em;
-  color: white; }
-
 .axis path,
 .axis line {
   fill: none;
-  stroke: white; }
+  stroke: hotpink;
+  shape-rendering: crispEdges; }
 
 .bar {
   fill: steelblue; }

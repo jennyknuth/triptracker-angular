@@ -1,9 +1,12 @@
-<h1>Calendar</h1>
 
-<h2>{{month | monthName }} {{year}} </h2>
-<div ng-click="nextMonth()">Next></div>
-<div ng-click="prevMonth()">Prev<</div>
-<h3>Maximum trips this month: {{maxTrips}} | Your trips this month: {{userTrips.length}}</h3>
+<article>
+  <h1>Calendar</h1>
+  <h2>{{month | monthName }} {{year}} </h2>
+  <div ng-click="nextMonth()">Next></div>
+  <div ng-click="prevMonth()">Prev<</div>
+  <h3>Maximum trips this month: {{maxTrips}} | Your trips this month: {{userTrips.length}}</h3>
+
+</article>
 <div class="container">
   <div class="background">
     <div class="day" ng-repeat="day in days track by $index" ng-style="day.pm | colorMap"></div>

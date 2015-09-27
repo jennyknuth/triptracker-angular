@@ -7,6 +7,10 @@ app.config(function($routeProvider) {
       .when('/styleguide', {
         templateUrl: 'views/styleguide.html'
       })
+      .when('/parent/:id/new', {
+        templateUrl: 'views/new.html',
+        controller: 'NewController'
+      })
       .when('/parent/:id', {
         templateUrl: 'views/parent.html',
         controller: 'ParentController'

@@ -18,7 +18,7 @@ app.factory('UserTrip', ["$resource", function ($resource) {
 
 // returns the User resource
 app.factory('User', ["$resource", function ($resource) {
-    return $resource('http://localhost:8080/api/users/:id', { id: '@userId', parentId: '@parentId' });
+    return $resource('http://localhost:8080/api/users/:id', {id: '@userId'});
 }]);
 
 // dataService calculates data

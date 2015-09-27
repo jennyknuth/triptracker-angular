@@ -27,27 +27,22 @@ app.controller("HomeController", ['$scope', '$route', 'User', 'Trip', 'dataservi
       }
     }
 
-
-    // $scope.data = [
-    //   {name: $scope.trips[0].userId, score: $scope.trips[0].distance},
-    //   {name: $scope.trips[55543].userId, score: $scope.trips[55543].distance},
-    //   {name: $scope.trips[5543].userId, score: $scope.trips[5543].distance},
-    //   {name: $scope.trips[543].userId, score: $scope.trips[543].distance}
-    // ];
-
   console.log($scope.monthData);
   })
-
-  $scope.newUser = function () {
-    $scope.user.type = 'parent'
-    console.log('new user to go into API and database', $scope.user);
-    User.save($scope.user, function() {
-      //data saved. do something here.
-      console.log('trip.save here');
-      $route.reload()
-    }); //saves an entry. Assuming $scope.trip is the Trip object
+  $scope.newUser = function (user) {
+    console.log('new user!', user);
+    var newUser = new User();
+    newUser.userId = user.userId;
+    newUser.type = 'parent';
+    $scope.parent = newUser;
+    console.log('new user to go into API and database', newUser);
+    User.save(newUser)
+    //   , function() {
+    //   //data saved. do something here.
+    //   console.log('trip.save here');
+    //   // $route.reload();
+    // }); //saves an entry. Assuming $scope.trip is the Trip object
   }
-
 
   $scope.showDetailPanel = function(item) { //example of on-click function
     $scope.$apply(function() {
@@ -56,8 +51,6 @@ app.controller("HomeController", ['$scope', '$route', 'User', 'Trip', 'dataservi
       $scope.detailItem = item;
     });
   };
-  // $scope.userId = 495653;
-  // $scope.userId = 431094; //this will come from where? firebase?
 
 }])
 
@@ -86,13 +79,13 @@ app.controller("StudentController", ['$scope', '$routeParams', 'UserTrip', 'User
 
 app.controller("ParentController", ['$scope', '$routeParams', 'Trip', 'User', 'dataservice', function($scope, $routeParams, Trip, User, dataservice){
   console.log("hello from ParentController");
-  // $scope.userId = $routeParams.id;
   console.log($routeParams.id);
-  User.query({id: $routeParams.id}, function (data) {
-    $scope.students = data
+  $scope.parent = User.get({id: $routeParams.id}, function (data) {
+    console.log(data)
   })
+
   $scope.newUser = function () {
-    $scope.user.type = 'student'
+    $scope.user.type = 'student' // only parents can create new students
     $scope.user.parent = $routeParams.id;
     console.log('new user to go into API and database', $scope.user);
     User.save($scope.user, function() {
@@ -102,8 +95,24 @@ app.controller("ParentController", ['$scope', '$routeParams', 'Trip', 'User', 'd
     }); //saves an entry. Assuming $scope.trip is the Trip object
   }
 
+}])
+
+app.controller("NewController", ['$scope', '$routeParams', 'Trip', 'User', 'dataservice', function($scope, $routeParams, Trip, User, dataservice){
+  console.log("hello from NewController");
+  $scope.parent = {}
+  $scope.parent.userId = $routeParams.id
+  console.log($routeParams.id);
+  User.query({id: $routeParams.id}, function (data) {
+    $scope.students = data
+  })
+  $scope.associateUser = function (parent) {
+    User.get({id: parseInt($routeParams.id)}, function (){
+      console.log('student id?', $scope.student);
+    })
+  }
 
 }])
+
 app.controller("CalendarController", ['$scope', '$routeParams', '$http', '$route', 'Trip', 'UserTrip', 'calendarservice', function($scope, $routeParams, $http, $route, Trip, UserTrip, calendarservice){
   console.log("hello from CalendarController");
 
@@ -127,14 +136,15 @@ app.controller("CalendarController", ['$scope', '$routeParams', '$http', '$route
         // Build day object from user trips
         // remember to maintain this day object
         $scope.userTrips.forEach(function(trip) {
-          calendarservice.buildDayObj(day, trip, date)
+          var dayObj = (calendarservice.buildDayObj(day, trip, date))
+          $scope.days.push(dayObj)
         })
       })
-        console.log($scope);
     })
   }
 
   $scope.buildCalendar($scope.month, $scope.year)
+          // console.log($scope.days);
 
   $scope.nextMonth = function () {
     if ($scope.month === 11) {

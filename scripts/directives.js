@@ -91,6 +91,143 @@ app.directive('d3Example', ['d3Service','$window', function(d3Service, $window) 
   }
 }]);
 
+app.directive('d3HeatMap', ['d3Service','$window', function(d3Service, $window) {
+  return {
+    restrict: 'EA',
+    // directive code
+    scope: {
+      data: '=', // this data is equal to the data in the directive, onClick is equal to the on-click in the directive
+      onClick: '&'  // parent execution binding
+    },
+    link: function(scope, element, attrs) {
+      console.log('hello from heat map directive link', element[0]);
+
+      d3Service.d3().then(function(d3) {
+        // our d3 code will go here:
+
+        var margin = { top: 50, right: 0, bottom: 100, left: 30 },
+            width = 500 - margin.left - margin.right,
+            height = 150 - margin.top - margin.bottom,
+            gridSize = Math.floor(width / 38),
+            legendElementWidth = gridSize*5,
+            colors = ["#651FFF", "#FF1744", "#FFD600", "#D500F9", "#FF6D00", "#64DD17", "#00B8D4"],
+            days = ["M", "T", "W", "T", "F"],
+            weeks = ["A", "", "S", "", "", "", "O", "", "", "", "N", "", "", "", "D", "", "", "", "J", "", "", "", "F", "", "", "", "M", "", "", "", "A", "", "", "", "M", "", "", ""];
+
+        var grid = d3.select(element[0])
+          .append("svg")
+          .style('width', '100%');
+
+        // Browser onresize event
+        window.onresize = function() {
+          scope.$apply();
+        };
+
+        // Watch for resize event
+        scope.$watch(function() {
+          return angular.element($window)[0].innerWidth;
+        }, function() {
+          scope.render(scope.data, grid);
+        });
+
+        // watch for data changes and re-render
+        scope.$watch('data', function(newVals, oldVals) {
+          return scope.render(newVals, grid);
+        }, true);
+
+        scope.render = function(data, grid) {
+          // our custom d3 code
+          // console.log(data);
+
+          // remove all previous items before render
+          grid.selectAll('*').remove();
+
+          // If we don't pass any data, return out of the element
+          if (!data) return;
+
+          data.forEach(function(d) {
+              console.log(d)
+              d.day = moment(d.date, "MM/DD/YYYY").day()
+              d.week = moment(d.date, "MM/DD/YYYY").week()
+            })
+          console.log(data);
+
+          var colorScale = d3.scale.ordinal()
+              .domain(['dw', 'rtd', 'bus', 'carpool', 'skate', 'bike', 'walk'])
+              .range(colors);
+
+            // var svg = d3.select("#chart").append("svg")
+            //     .attr("width", width + margin.left + margin.right)
+            //     .attr("height", height + margin.top + margin.bottom)
+            //     .attr("class", "svg-chart")
+            //     .append("g")
+            //     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+            var dayLabels = grid.selectAll(".dayLabel")
+                .data(days)
+                .enter().append("text")
+                  .text(function (d) { return d; })
+                  .attr("x", 0)
+                  .attr("y", function (d, i) { return i * gridSize; })
+                  .style("text-anchor", "end")
+                  .attr("transform", "translate(-6," + gridSize / 1.5 + ")")
+                  .attr("class", "mono");
+
+            var timeLabels = grid.selectAll(".weekLabel")
+                .data(weeks)
+                .enter().append("text")
+                  .text(function(d) { return d; })
+                  .attr("x", function(d, i) { return i * gridSize; })
+                  .attr("y", 0)
+                  .style("text-anchor", "middle")
+                  .attr("transform", "translate(" + gridSize / 2 + ", -6)")
+                  .attr("class", "mono");
+
+            var heatMap = grid.selectAll(".week")
+                .data(data)
+                .enter().append("rect")
+                .attr("x", function(d) { return (d.week - 1) * gridSize; })
+                .attr("y", function(d) { return (d.day - 1) * gridSize; })
+                .attr("rx", 6)
+                .attr("ry", 6)
+                .attr("class", "week bordered")
+                .attr("width", gridSize)
+                .attr("height", gridSize)
+                .style("fill", colors[0]);
+
+            heatMap.transition().duration(1000)
+                .style("fill", function(d) { return colorScale(d.type); })
+                .style("fill-opacity", "50%");
+
+            heatMap.append("title").text(function(d) { return d.type; });
+
+            // var legend = grid.selectAll(".legend")
+            //     .data(colorScale.domain(), function(d) { return d; })
+            //     .enter().append("g")
+            //     .attr("class", "legend");
+            //
+            // legend.append("rect")
+            //   .attr("x", function(d, i) { return legendElementWidth * i; })
+            //   .attr("y", height)
+            //   .attr("width", legendElementWidth)
+            //   .attr("height", gridSize)
+            //   .attr("class", "bordered")
+            //   .attr("rx", 4)
+            //   .attr("ry", 4)
+            //   .style("fill", function(d, i) { return colors[i]; })
+            //   .style("fill-opacity", "50%");
+            //
+            // legend.append("text")
+            //   .attr("class", "mono")
+            //   .text(function(d) { return d; })
+            //   .attr("x", function(d, i) { return (legendElementWidth * i) + 10; })
+            //   .attr("y", height + (gridSize/1.5 ));
+          }
+      });
+    }
+  }
+}]);
+
 app.directive('d3StackedBar', ['d3Service','$window', function(d3Service, $window) {
   return {
     restrict: 'EA',
@@ -110,7 +247,7 @@ app.directive('d3StackedBar', ['d3Service','$window', function(d3Service, $windo
 
         var margin = parseInt(attrs.margin) || 20,
         // margin = {top: 20, right: 20, bottom: 30, left: 40},
-        barWidth = parseInt(attrs.barWidth) || 120,
+        barWidth = parseInt(attrs.barWidth) || 80,
         barPadding = parseInt(attrs.barPadding) || 20;
 
         var chart = d3.select(element[0])
@@ -168,7 +305,7 @@ app.directive('d3StackedBar', ['d3Service','$window', function(d3Service, $windo
 
           // set the height based on the calculations above
           chart.attr('width', width + margin);
-          chart.attr('height', height * 3);
+          chart.attr('height', height * 2);
 
           var xAxis = d3.svg.axis()
               .scale(x)
@@ -205,8 +342,8 @@ app.directive('d3StackedBar', ['d3Service','$window', function(d3Service, $windo
                 .call(yAxis)
               .append("text")
                 .attr("transform", "rotate(-90)")
-                .attr("x", 6)
-                .attr("dy", ".71em")
+                .attr("x", -16)
+                .attr("dy", "1em")
                 .style("text-anchor", "end")
                 .text("Trips");
 

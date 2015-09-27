@@ -1,8 +1,15 @@
-<h2>New</h2>
-<p>form to add an associated student account</p>
-<p>do I want to do this? Better to do it from BVSD database? </p>
-<li>name</li>
-<li>id</li>
-<p>other fields: userId, school, type(student), parentId, are known</p>
-<p>how to find students in the database??? must I use id numbers?</p>
-<p>maybe change to add student permissions....</p>
+<article>
+  <h2>Add a Student</h2>
+  {{parent.userId}}
+  <form ng-submit="associateUser(parent.userId)">
+    <input type="text" ng-model="student.studentId" placeholder="student Id to add to parent account">
+    <input type="submit" value="add student">
+  </form>
+  <p>form to add an associated student account</p>
+  <p>do I want to do this? Better to do it from BVSD database? </p>
+  <li>name</li>
+  <li>id</li>
+  <p>other fields: userId, school, type(student), parentId, are known</p>
+  <p>how to find students in the database??? must I use id numbers?</p>
+  <p>maybe change to add student permissions....</p>
+</article>
