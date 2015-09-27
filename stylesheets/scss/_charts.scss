@@ -1,0 +1,15 @@
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: hotpink;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.x.axis path {
+  display: none;
+}

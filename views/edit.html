@@ -5,6 +5,9 @@
 <div ng-click="prevMonth()">Prev<</div>
 <h3>Maximum trips this month: {{maxTrips}} | Your trips this month: {{userTrips.length}}</h3>
 <div class="container">
+  <div class="background">
+    <div class="day" ng-repeat="day in days track by $index" ng-style="day.pm | colorMap"></div>
+  </div>
   <div class="calendar">
     <div class="day" ng-repeat="day in days track by $index" ng-style="day.pm | colorMap"></div>
   </div>

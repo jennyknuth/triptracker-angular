@@ -11,6 +11,11 @@ app.controller("HomeController", ['$scope', '$route', 'User', 'Trip', 'dataservi
     console.log('all trips:', $scope.trips);
     $scope.totalDistance = dataservice.totalDistance($scope.trips)
 
+    // var testTrips = []
+    // for (var i = 0; i < 100; i++) {
+    //   testTrips.push($scope.trips[i])
+    // }
+    // console.log(testTrips);
     $scope.monthData = []
 
     for (var i = 0; i < 12; i++) {
@@ -22,18 +27,14 @@ app.controller("HomeController", ['$scope', '$route', 'User', 'Trip', 'dataservi
       }
     }
 
-    $scope.data = [
-      {name: $scope.trips[0].userId, score: $scope.trips[0].distance},
-      {name: $scope.trips[55543].userId, score: $scope.trips[55543].distance},
-      {name: $scope.trips[5543].userId, score: $scope.trips[5543].distance},
-      {name: $scope.trips[543].userId, score: $scope.trips[543].distance}
-    ];
 
-    // var testTrips = []
-    // for (var i = 0; i < 100; i++) {
-    //   testTrips.push($scope.trips[i])
-    // }
-    // console.log(testTrips);
+    // $scope.data = [
+    //   {name: $scope.trips[0].userId, score: $scope.trips[0].distance},
+    //   {name: $scope.trips[55543].userId, score: $scope.trips[55543].distance},
+    //   {name: $scope.trips[5543].userId, score: $scope.trips[5543].distance},
+    //   {name: $scope.trips[543].userId, score: $scope.trips[543].distance}
+    // ];
+
   console.log($scope.monthData);
   })
 

@@ -1,32 +1,34 @@
-<h2>Home</h2>
-<h2>miles not driven {{totalDistance | number : 0 }}</h2>
-<h3>Add Parent User:</h3>
-<form ng-submit="newUser()">
-  <input type="text" ng-model="user.userId" placeholder="userId">
-  <!-- <input type="text" ng-model="user.type" placeholder="type"> -->
-  <input type="submit" value="submit">
-</form>
+<article>
+  <h2>Home</h2>
+  <h2>miles not driven {{totalDistance | number : 0 }}</h2>
+  <h3>Add Parent User:</h3>
+  <form ng-submit="newUser()">
+    <input type="text" ng-model="user.userId" placeholder="userId">
+    <!-- <input type="text" ng-model="user.type" placeholder="type"> -->
+    <input type="submit" value="submit">
+  </form>
 
-<div>
-  <p>(replace this with a link to login or, if logged in, a link to 'my dashboard')</p>
-  <h2>Users:</h2>
-  <li ng-repeat="user in users | filter: { type: 'student'} | limitTo: 7 ">
-    <a href="/#/{{user.userId}}">student: {{user.userId}}</a>
+  <div>
+    <p>(replace this with a link to login or, if logged in, a link to 'my dashboard')</p>
+    <h2>Users:</h2>
+    <li ng-repeat="user in users | filter: { type: 'student'} | limitTo: 7 ">
+      <a href="/#/{{user.userId}}">student: {{user.userId}}</a>
+    </li>
+    <li ng-repeat="user in users | filter: { type: 'parent'}">
+      <a href="/#/parent/{{user.userId}}">parent user: {{user.userId}}</a>
+    </li>
+    <hr>
+  </div>
+  <p>cool interactive charts here, start with stacked bar chart</p>
+
+  <!-- <div d3-example on-click="showDetailPanel(item)" data="data"></div> -->
+  <p>{{detailItem}}</p>
+
+  <div d3-stacked-bar on-click="showDetailPanel(item)" data="monthData"></div>
+  <p>WOOH</p>
+
+  <li ng-repeat="trip in trips | limitTo: 5">
+    <a href="/#/trip/{{trip._id}}">{{trip}}</a>
   </li>
-  <li ng-repeat="user in users | filter: { type: 'parent'}">
-    <a href="/#/parent/{{user.userId}}">parent user: {{user.userId}}</a>
-  </li>
-  <hr>
-</div>
-<p>cool interactive charts here, start with stacked bar chart</p>
 
-<div d3-example on-click="showDetailPanel(item)" data="data"></div>
-<!-- <div d3-example-two on-click="showDetailPanel(item)" data="data"></div> -->
-<p>{{detailItem}}</p>
-
-<div d3-stacked-bar on-click="showDetailPanel(item)" data="monthData"></div>
-<p>WOOH</p>
-
-<li ng-repeat="trip in trips | limitTo: 5">
-  <a href="/#/trip/{{trip._id}}">{{trip}}</a>
-</li>
+</article>

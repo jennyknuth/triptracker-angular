@@ -95,6 +95,7 @@ app.directive('d3StackedBar', ['d3Service','$window', function(d3Service, $windo
   return {
     restrict: 'EA',
     // directive code
+    replace: false,
     scope: {
       data: '=', // this data is equal to the data in the directive, onClick is equal to the on-click in the directive
       // the
@@ -102,13 +103,19 @@ app.directive('d3StackedBar', ['d3Service','$window', function(d3Service, $windo
     },
     link: function(scope, element, attrs) {
       console.log('hello from stacked bar directive link', element[0]);
+      console.log(attrs);
 
       d3Service.d3().then(function(d3) {
         // our d3 code will go here:
 
         var margin = parseInt(attrs.margin) || 20,
+        // margin = {top: 20, right: 20, bottom: 30, left: 40},
         barWidth = parseInt(attrs.barWidth) || 120,
         barPadding = parseInt(attrs.barPadding) || 20;
+
+        var chart = d3.select(element[0])
+          .append("svg")
+          .style('width', '100%');
 
         // Browser onresize event
         window.onresize = function() {
@@ -119,66 +126,64 @@ app.directive('d3StackedBar', ['d3Service','$window', function(d3Service, $windo
         scope.$watch(function() {
           return angular.element($window)[0].innerWidth;
         }, function() {
-          scope.render(scope.data);
+          console.log('one');
+          scope.render(scope.data, chart);
         });
 
         // watch for data changes and re-render
         scope.$watch('data', function(newVals, oldVals) {
-          return scope.render(newVals);
+          console.log('two');
+          return scope.render(newVals, chart);
         }, true);
 
-
-        scope.render = function(data) {
+        scope.render = function(data, chart) {
           console.log("rendering now!");
           // our custom d3 code
-        var svg = d3.select(element[0])
-          .append("svg")
-          .style('width', '100%');
 
           // remove all previous items before render
-          svg.selectAll('*').remove();
+          chart.selectAll('*').remove();
+          console.log('chart: ', chart);
 
           // If we don't pass any data, return out of the element
           if (!data) return;
 
           // setup variables
-
           var height = d3.select(element[0]).node().offsetHeight - margin;
-              // calculate the height
+
+          // calculate the width
           var width = scope.data.length * (barWidth + barPadding);
-              // Use the category20() scale function for multicolor support
-              // color = d3.scale.category20(),
-              // our xScale
+
+          // xScale
           var x = d3.scale.ordinal()
-                .rangeBands([0, width], .1);
+                .rangeRoundBands([0, width], .1);
+
+          // yScale
+          var y = d3.scale.linear()
+              .rangeRound([height, 0]);
+
+          // colorScale
+          var color = d3.scale.ordinal()
+              .range(["#651FFF", "#FF1744", "#FFD600", "#D500F9", "#FF6D00", "#64DD17", "#00B8D4"])
+              .domain(['dw', 'rtd', 'bus', 'carpool', 'skate', 'bike', 'walk']);
 
           // set the height based on the calculations above
-          svg.attr('width', width);
+          chart.attr('width', width + margin);
+          chart.attr('height', height * 3);
 
-          var y = d3.scale.linear()
-              .range([height, 0]);
+          var xAxis = d3.svg.axis()
+              .scale(x)
+              .orient("bottom");
 
-          var color = d3.scale.ordinal()
-              .range(["#651FFF", "#FF1744", "#FFD600", "#D500F9", "#FF6D00", "#64DD17", "#00B8D4"]);
-
-          // var xAxis = d3.svg.axis()
-          //     .scale(x)
-          //     .orient("bottom");
-          //
-          // var yAxis = d3.svg.axis()
-          //     .scale(y)
-          //     .orient("left")
-          //     .tickFormat(d3.format("d"));
+          var yAxis = d3.svg.axis()
+              .scale(y)
+              .orient("left")
+              .tickFormat(d3.format("d"));
 
           // var svg = d3.select("body").append("svg")
-          //     .attr("width", width + margin.left + margin.right)
-          //     .attr("height", height + margin.top + margin.bottom)
-          //   .append("g")
-          //     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-            // console.log(data);
-
-            color.domain(d3.keys(data[0]).filter(function(key) { return key !== "month"; }));
+              // .attr("width", width + margin.left + margin.right)
+              // .attr("height", height + margin.top + margin.bottom)
+            // .append("g")
+              // .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
             data.forEach(function(d) {
               var y0 = 0;
@@ -186,27 +191,26 @@ app.directive('d3StackedBar', ['d3Service','$window', function(d3Service, $windo
               d.total = d.types[d.types.length - 1].y1;
             });
 
-            // data.sort(function(a, b) { return b.total - a.total; });
+            x.domain(data.map(function(d) {return d.month}));
 
-            x.domain(data.map(function(d) { return d.month; }));
             y.domain([0, d3.max(data, function(d) { return d.total; })]);
 
-            // svg.append("g")
-            //     .attr("class", "x axis")
-            //     .attr("transform", "translate(0," + height + ")")
-            //     .call(xAxis);
-            //
-            // svg.append("g")
-            //     .attr("class", "y axis")
-            //     .call(yAxis)
-            //   .append("text")
-            //     .attr("transform", "rotate(-90)")
-            //     .attr("y", 6)
-            //     .attr("dy", ".71em")
-            //     .style("text-anchor", "end")
-            //     .text("Trips");
+            chart.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis);
 
-            var month = svg.selectAll(".month")
+            chart.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+              .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("x", 6)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .text("Trips");
+
+            var month = chart.selectAll(".month")
                 .data(data)
               .enter().append("g")
                 .attr("class", "g")
@@ -220,24 +224,24 @@ app.directive('d3StackedBar', ['d3Service','$window', function(d3Service, $windo
                 .attr("height", function(d) { return y(d.y0) - y(d.y1); })
                 .style("fill", function(d) { return color(d.name); });
 
-            // var legend = svg.selectAll(".legend")
-            //     .data(color.domain().slice().reverse())
-            //   .enter().append("g")
-            //     .attr("class", "legend")
-            //     .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-            //
-            // legend.append("rect")
-            //     .attr("x", width - 18)
-            //     .attr("width", 18)
-            //     .attr("height", 18)
-            //     .style("fill", color);
-            //
-            // legend.append("text")
-            //     .attr("x", width - 24)
-            //     .attr("y", 9)
-            //     .attr("dy", ".35em")
-            //     .style("text-anchor", "end")
-            //     .text(function(d) { return d; });
+            var legend = chart.selectAll(".legend")
+                .data(color.domain().reverse())
+              .enter().append("g")
+                .attr("class", "legend")
+                .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+            legend.append("rect")
+                .attr("x", width + 18)
+                .attr("width", 18)
+                .attr("height", 18)
+                .style("fill", color);
+
+            legend.append("text")
+                .attr("x", width + 50)
+                .attr("y", 10)
+                .attr("dy", ".35em")
+                .style("text-anchor", "start")
+                .text(function(d) { return d; });
           }
       });
     }

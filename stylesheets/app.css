@@ -46,31 +46,33 @@ table {
   border-spacing: 0; }
 
 body {
-  padding: 5px; }
+  background-color: white;
+  text-align: center; }
 
 .container {
   position: relative; }
 
 .calendar {
+  margin: 1vw;
   position: absolute;
   top: 0;
   left: 0; }
-
-.day {
-  padding: .5em;
-  border-radius: 9px;
-  font-size: 12px;
-  display: block;
-  float: left;
-  height: 13vw;
-  width: 13vw;
-  background-color: rgba(153, 153, 153, 0.1);
-  border: 2px solid white; }
-
-.trip-type {
-  vertical-align: top;
-  width: 45%;
-  display: inline-block; }
+  .calendar .background {
+    background-color: white; }
+  .calendar .day {
+    padding: .5em;
+    border-radius: 9px;
+    font-size: 10px;
+    display: block;
+    float: left;
+    height: 13vw;
+    width: 13vw;
+    background-color: rgba(225, 225, 225, 0.1);
+    border: 2px solid white; }
+  .calendar .trip-type {
+    vertical-align: top;
+    width: 45%;
+    display: inline-block; }
 
 .left {
   float: left; }
@@ -85,7 +87,7 @@ body {
   font-family: Lato, sans-serif;
   font-weight: 300;
   line-height: 1.45;
-  color: black; }
+  color: white; }
 
 a {
   color: gray;
@@ -119,3 +121,21 @@ h4 {
 
 small, .font_small {
   font-size: 0.833em; }
+
+form {
+  text-align: left; }
+
+#chart {
+  margin: 3em;
+  color: white; }
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: white; }
+
+.bar {
+  fill: steelblue; }
+
+.x.axis path {
+  display: none; }

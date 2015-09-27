@@ -1,6 +1,6 @@
 body {
-  padding: 5px;
-
+  background-color: white;
+  text-align: center;
 }
 
 .container {
@@ -8,28 +8,30 @@ body {
 }
 
 .calendar {
+  margin: 1vw;
   position: absolute;
   top: 0;
   left: 0;
-}
-
-.day {
-  padding: .5em;
-  border-radius: 9px;
-  font-size: 12px;
-  display: block;
-  float: left;
-  height: 13vw;
-  width: 13vw;
-  background-color: $transparentGray;
-  border: 2px solid white;
-  // background-color: mix($red, $yellow);
-}
-
-.trip-type {
-  vertical-align: top;
-  width: 45%;
-  display: inline-block;
+  .background {
+    background-color: white;
+  }
+  .day {
+    padding: .5em;
+    border-radius: 9px;
+    font-size: 10px;
+    display: block;
+    float: left;
+    height: 13vw;
+    width: 13vw;
+    background-color: $transparentGray;
+    border: 2px solid white;
+    // background-color: mix($red, $yellow);
+  }
+  .trip-type {
+    vertical-align: top;
+    width: 45%;
+    display: inline-block;
+  }
 }
 
 .left {
