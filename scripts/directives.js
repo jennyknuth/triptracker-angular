@@ -107,7 +107,7 @@ app.directive('d3HeatMap', ['d3Service','$window', function(d3Service, $window) 
 
         var margin = { top: 20, right: 0, bottom: 20, left: 20 },
             width = 500 - margin.left - margin.right,
-            height = 75 - margin.top - margin.bottom,
+            height = 80 - margin.top - margin.bottom,
             gridSize = Math.floor(width / 38),
             legendElementWidth = gridSize*5,
             colors = ["#651FFF", "#FF1744", "#FFD600", "#D500F9", "#FF6D00", "#64DD17", "#00B8D4"],
@@ -116,7 +116,8 @@ app.directive('d3HeatMap', ['d3Service','$window', function(d3Service, $window) 
 
         var grid = d3.select(element[0])
           .append("svg")
-          .style('height', gridSize * 5);
+          .style("width", '100%')
+          .style('height', gridSize * 6);
 
         // Browser onresize event
         window.onresize = function() {

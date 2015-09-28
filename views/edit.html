@@ -3,7 +3,8 @@
   <h2><span ng-click="prevMonth()"><</span> {{month | monthName | uppercase}} {{year}} <span ng-click="nextMonth()">></span></h2>
 
 
-  <h3>Maximum trips this month: {{maxTrips}} | Your trips: {{userTrips.length}}</h3>
+  <h3>Maximum trips this month: {{maxTrips}}</h3>
+  <h3>Your total trips: {{userTrips.length}}</h3>
 
 </article>
 <div class="container">
@@ -13,7 +14,7 @@
 
   <div class="calendar">
     <div class="day" ng-repeat="day in days track by $index" ng-style="day.pm | colorMap"></div>
-  </div> -->
+  </div>
 
   <div class="calendar">
     <div class="day" ng-repeat="day in days track by $index" ng-style="day.am | colorMap">
@@ -23,8 +24,6 @@
         <div class="clear" ng-show="day.show">
           <div class="trip-type">
             <form ng-init="day.am='none'">
-              <!-- <label><input type="radio" name="am" ng-model="day.am" value="none" ng-click="deleteTrip(day.am_id)"> none<br>
-                </label> -->
               <label ng-repeat="type in ['none', 'walk', 'bike', 'skate', 'carpool', 'bus', 'rtd', 'dw']">
                 <input type="radio" name="am" ng-model="day.am" ng-click="renewAmTrip(day)" value="{{type}}" > {{type | tripType}}<br>
               </label>
@@ -37,8 +36,6 @@
           </div>
           <div class="trip-type">
             <form ng-init="day.pm='none'">
-              <!-- <label><input type="radio" name="pm" ng-model="day.pm" value="none" ng-click="deleteTrip(day.pm_id)"> none<br> -->
-                <!-- </label> -->
               <label ng-repeat="type in ['none', 'walk', 'bike', 'skate', 'carpool', 'bus', 'rtd', 'dw']">
                 <input type="radio" name="pm" ng-model="day.pm" ng-click="renewPmTrip(day)" value="{{type}}" > {{type | tripType}}<br>
               </label>

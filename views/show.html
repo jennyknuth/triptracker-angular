@@ -1,5 +1,6 @@
 <article>
   <h2 class="right"><a href="#/{{user.userId}}/edit">+ add/edit trips</a></h2>
+  <a href="/#/"><span class="backArrow">&#8592</span></a>
   <div class="show">
     <h2>Hello {{user.name}}</h2>
     <div class="heat">
@@ -10,10 +11,4 @@
     <p ng-show="studentPowerDistance > 0">total student-powered distance: {{studentPowerDistance | number:1 }} miles</p>
     <p>reward earned: {{reward | currency}}</p>
   </div>
-
-  <!-- <li ng-repeat="trip in userTrips" ng-init="sumDistance(trip)">
-    {{trip.type}}
-    {{trip.distance}}
-    {{trip.dwDistance}}
-  </li> -->
 </article>
