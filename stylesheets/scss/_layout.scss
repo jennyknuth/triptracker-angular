@@ -2,20 +2,12 @@
   box-sizing: border-box;
 }
 html {
-  background: linear-gradient(black, darkgray) no-repeat center center fixed;
+  background: linear-gradient(black, $colorTwo) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
 }
-
-// .gradient{
-//   background-image: ;
-//   position: fixed;
-//   height: 200%;
-//   width: 100%;
-//   z-index: -1;
-// }
 
 body {
   // position: fixed;

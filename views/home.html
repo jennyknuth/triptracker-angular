@@ -4,20 +4,14 @@
     <div class="login" ng-hide="parent.userId">
       <h3>Login:</h3>
       <form ng-submit="login()">
-        <input type="text" placeholder="user name">
-        <input type="password" placeholder="password">
+        <input type="text" placeholder="demo version">
+        <input type="password" value="you're in">
         <input class="submit" type="submit" value="login">
       </form>
     </div>
     <div ng-show="parent.userId">
       <h2><a href="/#/parent/{{parent.userId}}">Your Dashboard</a></h2p>
     </div>
-    <!-- <li ng-repeat="user in users | filter: { type: 'student'} | limitTo: 7 ">
-      <a href="/#/{{user.userId}}">student: {{user.userId}}</a>
-    </li>
-    <li ng-repeat="user in users | filter: { type: 'parent'}">
-      <a href="/#/parent/{{user.userId}}">parent user: {{user.userId}}</a>
-    </li> -->
   </div>
 
   <div class="stackedOut">
@@ -26,6 +20,13 @@
 
   <!-- <li ng-repeat="trip in trips | limitTo: 5">
     <a href="/#/trip/{{trip._id}}">{{trip}}</a>
+  </li> -->
+
+  <!-- <li ng-repeat="user in users | filter: { type: 'student'} | limitTo: 7 ">
+    <a href="/#/{{user.userId}}">student: {{user.userId}}</a>
+  </li>
+  <li ng-repeat="user in users | filter: { type: 'parent'}">
+    <a href="/#/parent/{{user.userId}}">parent user: {{user.userId}}</a>
   </li> -->
 
 </article>

@@ -60,11 +60,14 @@ table {
 .purple {
   color: #7B1FA2; }
 
+.yellow {
+  color: #FFC107; }
+
 *, *:before, *:after {
   box-sizing: border-box; }
 
 html {
-  background: linear-gradient(black, darkgray) no-repeat center center fixed;
+  background: linear-gradient(black, #5e5d66) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
