@@ -140,7 +140,6 @@ app.directive('d3HeatMap', ['d3Service','$window', function(d3Service, $window) 
 
         scope.render = function(data, grid) {
           // our custom d3 code
-          // console.log(data);
 
           // remove all previous items before render
           grid.selectAll('*').remove();
@@ -167,16 +166,16 @@ app.directive('d3HeatMap', ['d3Service','$window', function(d3Service, $window) 
                   .attr("transform", "translate(-6," + gridSize / 1.5 + ")")
                   .attr("class", "mono");
 
-            var timeLabels = grid.selectAll(".weekLabel")
-                .data(weeks)
-                .enter().append("text")
-                  .text(function(d) {
-                    return d; })
-                  .attr("x", function(d, i) { return i * gridSize; })
-                  .attr("y", 0)
-                  .style("text-anchor", "middle")
-                  .attr("transform", "translate(" + gridSize / 2 + ", -6)")
-                  .attr("class", "mono");
+            // var timeLabels = grid.selectAll(".weekLabel")
+            //     .data(weeks)
+            //     .enter().append("text")
+            //       .text(function(d) {
+            //         return d; })
+            //       .attr("x", function(d, i) { return i * gridSize; })
+            //       .attr("y", 0)
+            //       .style("text-anchor", "middle")
+            //       .attr("transform", "translate(" + gridSize / 2 + ", -6)")
+            //       .attr("class", "mono");
 
             var heatMap = grid.selectAll(".week")
                 .data(data)
