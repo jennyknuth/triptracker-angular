@@ -80,13 +80,16 @@ body {
     margin-top: 2em;
     margin-left: 100px; }
 
+nav h3 {
+  line-height: 1.6em; }
+
 article {
   margin-left: 100px;
   width: 60%; }
   article form {
     text-align: right; }
   article .student {
-    clear: both;
+    clear: right;
     margin: 1em; }
   article .login {
     display: block; }
@@ -181,6 +184,9 @@ header h1 {
 .backArrow {
   font-size: 2em; }
 
+.alignLeft {
+  text-align: left; }
+
 h2 {
   font-size: 1.728em; }
 
@@ -192,7 +198,11 @@ h4 {
   font-size: 1.2em; }
 
 small, .font_small {
-  font-size: 0.833em; }
+  font-size: 0.833em;
+  margin-left: .1em;
+  display: block;
+  width: 178px;
+  text-align: left; }
 
 form {
   text-align: left; }

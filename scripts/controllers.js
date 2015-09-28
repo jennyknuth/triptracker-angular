@@ -65,11 +65,6 @@ app.controller("HomeController", ['$scope', '$route', 'User', 'Trip', 'dataservi
 app.controller("StudentController", ['$scope', '$routeParams', 'UserTrip', 'User', 'dataservice', function($scope, $routeParams, UserTrip, User, dataservice){
   console.log("hello from StudentController");
   console.log($routeParams.id);
-  // $scope.user.userId = $routeParams.id;
-
-  // $scope.trip = Trip.get(function({id: $routeParams.id}) {
-  //   console.log('single trip', $scope.trip);
-  // });
   $scope.user = User.get({id: parseInt($routeParams.id)}, function (){
     console.log('user?', $scope.user);
   })
@@ -142,6 +137,7 @@ app.controller("CalendarController", ['$scope', '$routeParams', '$http', '$route
   var today = new Date()
   $scope.month = today.getMonth();
   $scope.year = today.getFullYear();
+  $scope.userId = $routeParams;
   // $scope.month = 0;
   // $scope.year = 2014;
 

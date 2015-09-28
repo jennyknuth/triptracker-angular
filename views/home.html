@@ -1,10 +1,15 @@
 <article>
   <h2>{{totalDistance | number : 0 }} fewer car trips</h2>
   <div class="add">
+    <nav>
+      <a href="/#/about"><h3 class="alignLeft">ABOUT</h3></a>
+      <a href="/#/FAQ"><h3 class="alignLeft">FAQ</h3></a>
+    </nav>
     <div class="login" ng-hide="parent.userId">
-      <h3>Login:</h3>
+      <h3 class="alignLeft">Login:</h3>
+      <small>for demo purposes, an unrecognized login will take you to a demo user page</small>
       <form ng-submit="login()">
-        <input type="text" placeholder="demo version">
+        <input type="text" placeholder="user name">
         <input type="password" value="you're in">
         <input class="submit" type="submit" value="login">
       </form>
