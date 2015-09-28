@@ -45,26 +45,41 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
+.green {
+  color: #00796B; }
+
+.pink {
+  color: hotpink; }
+
+.blue {
+  color: #1565C0; }
+
+.red {
+  color: #c62828; }
+
+.purple {
+  color: #7B1FA2; }
+
 *, *:before, *:after {
   box-sizing: border-box; }
 
 html {
-  background-image: linear-gradient(black, darkgray);
-  background-repeat: round round;
-  height: 200%;
-  width: 100%; }
+  background: linear-gradient(black, darkgray) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
 
 body {
   width: 100%;
   color: white; }
   body .title {
-    margin-left: 100px;
-    margin-top: 100px; }
+    margin-top: 2em;
+    margin-left: 100px; }
 
 article {
   margin-left: 100px;
-  width: 60%;
-  position: relative; }
+  width: 60%; }
   article form {
     text-align: right; }
   article .student {
@@ -132,18 +147,6 @@ article {
 .clear {
   clear: both; }
 
-.pink {
-  color: hotpink; }
-
-.blue {
-  color: #1565C0; }
-
-.red {
-  color: #c62828; }
-
-.purple {
-  color: #7B1FA2; }
-
 html {
   font-size: 1em; }
 
@@ -190,6 +193,11 @@ small, .font_small {
 
 form {
   text-align: left; }
+
+.login input {
+  font-size: 14px;
+  padding: .3em;
+  margin-bottom: .2em; }
 
 .axis path,
 .axis line {

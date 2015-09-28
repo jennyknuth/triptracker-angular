@@ -4,12 +4,12 @@
     <div class="login" ng-hide="parent.userId">
       <h3>Login:</h3>
       <form ng-submit="login()">
-        <input type="text" ng-model="parent.userId" placeholder="login">
+        <input type="text" placeholder="user name">
         <input type="password" placeholder="password">
-        <input type="submit" value="submit">
+        <input class="submit" type="submit" value="login">
       </form>
     </div>
-    <div ng-show={{parent.userId}}>
+    <div ng-show="parent.userId">
       <h2><a href="/#/parent/{{parent.userId}}">Your Dashboard</a></h2p>
     </div>
     <!-- <li ng-repeat="user in users | filter: { type: 'student'} | limitTo: 7 ">

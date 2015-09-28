@@ -1,8 +1,13 @@
 app.controller("HomeController", ['$scope', '$route', 'User', 'Trip', 'dataservice', function($scope, $route, User, Trip, dataservice){
   console.log('hello from HomeController');
   $scope.parent = {}
-  $scope.parent.userId = 99;
 
+  $scope.login = function () {
+    $scope.parent.userId = 99;
+    window.localStorage.setItem("userId", "99");
+  }
+
+  $scope.parent.userId = window.localStorage.getItem("userId");
 
   // get all users
   $scope.users = User.query( function (){
@@ -184,12 +189,18 @@ app.controller("CalendarController", ['$scope', '$routeParams', '$http', '$route
 
   // option 1: send package to server, have server do logic if it is to create/edit/delete
   // option 2: if "none", need new, any other, modify
+  var dayCounter = []
   $scope.renewAmTrip = function (amObj) {
-    console.log('amObj', amObj);
-    var dayCounter = []
-    dayCounter.push(amObj.value)
-    if (amObj.am !== 'none' && dayCounter.indexOf(amObj.value) < 0){ // need to also add the criteria that previous value was also none
+    // console.log('amObj', amObj);
+    // dayCounter.push(amObj.value)
+    // console.log(dayCounter.indexOf(amObj.value));
+    // if (amObj.am !== 'none' && dayCounter.indexOf(amObj.value) < 0){ // need to also add the criteria that previous value was also none
+    if (amObj.am !== 'none'){ // need to also add the criteria that previous value was also none
       $scope.userTrips.length += 1;
+      console.log('count', $scope.userTrips.length);
+    // } else if (amObj.am === 'none' && dayCounter.indexOf(amObj.value) >= 0){
+    } else if (amObj.am === 'none'){
+      $scope.userTrips.length -= 1
     }
     // console.log('day coming in to renew', dayObj);
     var amTrip = calendarservice.makeAmTrip(amObj)
@@ -199,11 +210,19 @@ app.controller("CalendarController", ['$scope', '$routeParams', '$http', '$route
   }
 
   $scope.renewPmTrip = function (pmObj) {
-    var dayCounter = []
-    dayCounter.push(pmObj.value)
-    if (pmObj.pm !== 'none' && dayCounter.indexOf(pmObj.value) < 0){
+    // var dayCounter = []
+    // dayCounter.push(pmObj.value)
+    // if (pmObj.pm !== 'none' && dayCounter.indexOf(pmObj.value) < 0){
+    //   $scope.userTrips.length += 1;
+    // }
+    if (pmObj.pm !== 'none'){ // need to also add the criteria that previous value was also none
       $scope.userTrips.length += 1;
+      console.log('count', $scope.userTrips.length);
+    // } else if (amObj.am === 'none' && dayCounter.indexOf(amObj.value) >= 0){
+    } else if (pmObj.pm === 'none'){
+      $scope.userTrips.length -= 1
     }
+
     var pmTrip = calendarservice.makePmTrip(pmObj)
     // console.log('pmTrip to post', pmTrip);
     $http.post('http://localhost:8080/api/trips/user/' + pmObj.userId, pmTrip)
