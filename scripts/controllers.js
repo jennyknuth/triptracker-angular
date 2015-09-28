@@ -198,7 +198,7 @@ app.controller("CalendarController", ['$scope', '$routeParams', '$http', '$route
     } else if (amObj.am === 'none'){
       $scope.userTrips.length -= 1
     }
-    // console.log('day coming in to renew', dayObj);
+    console.log('day coming in to renew', dayObj);
     var amTrip = calendarservice.makeAmTrip(amObj)
     // console.log('amTrip to post', amTrip);
     $http.post('http://localhost:8080/api/trips/user/' + amObj.userId, amTrip)
