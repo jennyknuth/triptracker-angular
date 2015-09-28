@@ -1,5 +1,8 @@
 app.controller("HomeController", ['$scope', '$route', 'User', 'Trip', 'dataservice', function($scope, $route, User, Trip, dataservice){
   console.log('hello from HomeController');
+  $scope.parent = {}
+  $scope.parent.userId = 99;
+
 
   // get all users
   $scope.users = User.query( function (){
@@ -32,7 +35,7 @@ app.controller("HomeController", ['$scope', '$route', 'User', 'Trip', 'dataservi
   $scope.newUser = function (user) {
     console.log('new user!', user);
     var newUser = new User();
-    newUser.userId = user.userId;
+    newUser.userId = parseInt(user.userId);
     newUser.type = 'parent';
     $scope.parent = newUser;
     console.log('new user to go into API and database', newUser);
@@ -77,16 +80,31 @@ app.controller("StudentController", ['$scope', '$routeParams', 'UserTrip', 'User
 
 }])
 
-app.controller("ParentController", ['$scope', '$routeParams', 'Trip', 'User', 'dataservice', function($scope, $routeParams, Trip, User, dataservice){
+app.controller("ParentController", ['$scope', '$routeParams', 'Trip', 'User', 'UserTrip', 'dataservice', function($scope, $routeParams, Trip, User, UserTrip, dataservice){
   console.log("hello from ParentController");
   console.log($routeParams.id);
-  $scope.parent = User.get({id: $routeParams.id}, function (data) {
-    console.log(data)
+  $scope.students = []
+  var trips = [];
+  $scope.parent = User.get({id: parseInt($routeParams.id)}, function (){
+    console.log($scope.parent);
+    $scope.parent.students.forEach(function (student) {
+      var student  = User.get({id: student}, function () {
+        $scope.students.push(student)
+        console.log(student);
+        student.userTrips = UserTrip.query({id: student.userId}, function () {
+          console.log(student.userTrips);
+        student.powerDistance = dataservice.studentPowerDistance(student.userTrips)
+        student.reward = dataservice.calculateReward(student.userTrips)
+
+        })
+      })
+    })
+  console.log($scope);
   })
 
   $scope.newUser = function () {
     $scope.user.type = 'student' // only parents can create new students
-    $scope.user.parent = $routeParams.id;
+    $scope.user.parent = parseInt($routeParams.id);
     console.log('new user to go into API and database', $scope.user);
     User.save($scope.user, function() {
       //data saved. do something here.
@@ -128,17 +146,19 @@ app.controller("CalendarController", ['$scope', '$routeParams', '$http', '$route
     $scope.maxTrips = calendarservice.maxTrips($scope.days)
     $scope.userTrips = UserTrip.query({id: parseInt($routeParams.id)}, function(){
       // need to calculate user trips in current period with a service
-
+      console.log($scope.userTrips);
       // iterate over days
       $scope.days.forEach(function (day) {
-        var date = ($scope.month + 1) + "/" + day.value + "/" + $scope.year
-
+          var date = ($scope.month + 1) + "/" + day.value + "/" + $scope.year
         // Build day object from user trips
         // remember to maintain this day object
-        $scope.userTrips.forEach(function(trip) {
-          var dayObj = (calendarservice.buildDayObj(day, trip, date))
-          $scope.days.push(dayObj)
-        })
+        if (day.show) {
+          $scope.userTrips.forEach(function(trip) {
+            // console.log(trip);
+              (calendarservice.buildDayObj(day, trip, date))
+              // console.log($scope);
+          })
+        }
       })
     })
   }
@@ -149,7 +169,6 @@ app.controller("CalendarController", ['$scope', '$routeParams', '$http', '$route
   $scope.nextMonth = function () {
     if ($scope.month === 11) {
       $scope.year = $scope.year + 1
-      console.log($scope.year);
     }
     $scope.month = ($scope.month + 1) % 12
     $scope.buildCalendar($scope.month, $scope.year)
@@ -164,18 +183,26 @@ app.controller("CalendarController", ['$scope', '$routeParams', '$http', '$route
   }
 
   // option 1: send package to server, have server do logic if it is to create/edit/delete
-  // option 2: none = need new, any other, modify
-  $scope.renewAmTrip = function (dayObj) {
+  // option 2: if "none", need new, any other, modify
+  $scope.renewAmTrip = function (amObj) {
+    console.log('amObj', amObj);
+    if (amObj.am !== 'none'){
+      console.log('equals none!');
+      $scope.userTrips.length += 1;
+    }
     // console.log('day coming in to renew', dayObj);
-    var amTrip = calendarservice.makeAmTrip(dayObj)
+    var amTrip = calendarservice.makeAmTrip(amObj)
     // console.log('amTrip to post', amTrip);
-    $http.post('http://localhost:8080/api/trips/user/' + dayObj.userId, amTrip)
+    $http.post('http://localhost:8080/api/trips/user/' + amObj.userId, amTrip)
     // console.log('day after post', dayObj);
   }
-  $scope.renewPmTrip = function (day) {
-    var pmTrip = calendarservice.makePmTrip(day)
+  $scope.renewPmTrip = function (pmObj) {
+    if (pmObj.pm !== 'none'){
+      $scope.userTrips.length += 1;
+    }
+    var pmTrip = calendarservice.makePmTrip(pmObj)
     // console.log('pmTrip to post', pmTrip);
-    $http.post('http://localhost:8080/api/trips/user/' + day.userId, pmTrip)
+    $http.post('http://localhost:8080/api/trips/user/' + pmObj.userId, pmTrip)
   }
 
   $scope.deleteTrip = function (id) {

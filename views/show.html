@@ -1,19 +1,19 @@
 <article>
-  <h2><a href="#/{{user.userId}}/edit">add/edit trips for this month</a></h2>
+  <h2 class="right"><a href="#/{{user.userId}}/edit">+ add/edit trips</a></h2>
+  <div class="show">
+    <h2>Hello {{user.name}}</h2>
+    <div class="heat">
+      <div d3-heat-map data="userTrips"></div>
+    </div>
 
-  <h2>user: {{user.userId}} {{user.name}}</h2>
-  <h3>custom directive chart of trips</h3>
-  <div class="heat">
-    <div d3-heat-map data="userTrips"></div>
+    <p>{{userTrips.length}} total trips</p>
+    <p ng-show="studentPowerDistance > 0">total student-powered distance: {{studentPowerDistance | number:1 }} miles</p>
+    <p>reward earned: {{reward | currency}}</p>
   </div>
 
-  <p>{{userTrips.length}} total trips</p>
-  <p ng-show="studentPowerDistance > 0">total distance = {{studentPowerDistance | number:1 }} miles</p>
-  <p>Current reward earned: {{reward | currency}}</p>
-
-  <li ng-repeat="trip in userTrips" ng-init="sumDistance(trip)">
+  <!-- <li ng-repeat="trip in userTrips" ng-init="sumDistance(trip)">
     {{trip.type}}
     {{trip.distance}}
     {{trip.dwDistance}}
-  </li>
+  </li> -->
 </article>

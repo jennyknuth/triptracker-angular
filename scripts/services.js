@@ -62,6 +62,7 @@ app.factory('dataservice', ["$routeParams", "User", function ($routeParams, User
   }
 
   dataservice.studentPowerDistance = function (trips) {
+    // console.log(trips);
     var sum = 0
     trips.forEach(function (trip){
         if (trip.type === 'walk' || trip.type === 'bike' || trip.type === 'skate'){
@@ -145,65 +146,64 @@ app.factory('calendarservice', [ function ( ) {
     return trips
   }
 
-  calendarservice.buildDayObj = function (day, trip, date) {
-    day.date = date
-    day.userId = trip.userId
-    day.distance = trip.distance // need to pass these back to database
-    day.school = trip.school
+  calendarservice.buildDayObj = function (dayObj, trip, date) {
+    console.log(dayObj);
+    dayObj.date = date;
+    dayObj.userId = trip.userId;
+    dayObj.distance = trip.distance; // need to pass these back to database
+    dayObj.school = trip.school;
 
     if (date === trip.date){
       //build day object
       if (trip.dayPart === 'am') { // map dayPart to scope model
-        day.am = trip.type;
-        day.am_dwDistance = trip.dwDistance;
-        day.am_id = trip._id
-      }
-      if (trip.dayPart === 'pm') {
-        day.pm = trip.type;
-        day.pm_dwDistance = trip.dwDistance;
-        day.pm_id = trip._id
-      }
-    } else {
-      if (!day.am || !day.pm){
-        day.am = 'none';
-        day.pm = 'none';
+        dayObj.am = trip.type;
+        dayObj.am_dwDistance = trip.dwDistance;
+        dayObj.am_id = trip._id;
+      } else if (trip.dayPart === 'pm') {
+        dayObj.pm = trip.type;
+        dayObj.pm_dwDistance = trip.dwDistance;
+        dayObj.pm_id = trip._id;
       }
     }
-    return day
+    return dayObj
   }
 
   // map day model from scope back to trip model for db
-  calendarservice.makeAmTrip = function (day) {
+  calendarservice.makeAmTrip = function (dayObj) {
+    console.log('am dayObj before', dayObj);
     var amTrip = {};
-    if (day.am) {
+
       amTrip.dayPart = 'am';
-      amTrip.type = day.am;
-      if (day.am_dwDistance) {
-        amTrip.dwDistance = day.am_dwDistance
+      amTrip.type = dayObj.am;
+      if (dayObj.am_dwDistance) {
+        amTrip.dwDistance = dayObj.am_dwDistance
       }
-    }
-    amTrip.id = day.am_id
-    amTrip.date = day.date
-    amTrip.distance = day.distance
-    amTrip.school = day.school
-    amTrip.userId = day.userId
+
+    amTrip.id = dayObj.am_id
+    amTrip.date = dayObj.date
+    amTrip.distance = dayObj.distance
+    amTrip.school = dayObj.school
+    amTrip.userId = dayObj.userId
+    console.log('renewed am trip', amTrip);
     return amTrip;
   }
 
-  calendarservice.makePmTrip = function (day) {
+  calendarservice.makePmTrip = function (dayObj) {
+    console.log('pm dayObj before', dayObj);
     var pmTrip = {}
-    if (day.pm) {
+    // if (dayObj.pm) {
       pmTrip.dayPart = 'pm';
-      pmTrip.type = day.pm;
-      if (day.pm_dwDistance) {
-        pmTrip.dwDistance = day.pm_dwDistance
+      pmTrip.type = dayObj.pm;
+      if (dayObj.pm_dwDistance) {
+        pmTrip.dwDistance = dayObj.pm_dwDistance
       }
-    }
-    pmTrip.id = day.pm_id
-    pmTrip.date = day.date
-    pmTrip.distance = day.distance
-    pmTrip.school = day.school
-    pmTrip.userId = day.userId
+    // }
+    pmTrip.id = dayObj.pm_id
+    pmTrip.date = dayObj.date
+    pmTrip.distance = dayObj.distance
+    pmTrip.school = dayObj.school
+    pmTrip.userId = dayObj.userId
+    console.log('renewed pm trip', pmTrip);
     return pmTrip;
   }
 

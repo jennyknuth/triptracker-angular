@@ -105,9 +105,9 @@ app.directive('d3HeatMap', ['d3Service','$window', function(d3Service, $window) 
       d3Service.d3().then(function(d3) {
         // our d3 code will go here:
 
-        var margin = { top: 50, right: 0, bottom: 100, left: 30 },
+        var margin = { top: 20, right: 0, bottom: 20, left: 20 },
             width = 500 - margin.left - margin.right,
-            height = 150 - margin.top - margin.bottom,
+            height = 75 - margin.top - margin.bottom,
             gridSize = Math.floor(width / 38),
             legendElementWidth = gridSize*5,
             colors = ["#651FFF", "#FF1744", "#FFD600", "#D500F9", "#FF6D00", "#64DD17", "#00B8D4"],
@@ -116,7 +116,7 @@ app.directive('d3HeatMap', ['d3Service','$window', function(d3Service, $window) 
 
         var grid = d3.select(element[0])
           .append("svg")
-          .style('width', '100%');
+          .style('height', gridSize * 5);
 
         // Browser onresize event
         window.onresize = function() {
@@ -146,11 +146,9 @@ app.directive('d3HeatMap', ['d3Service','$window', function(d3Service, $window) 
           if (!data) return;
 
           data.forEach(function(d) {
-              console.log(d)
               d.day = moment(d.date, "MM/DD/YYYY").day()
               d.week = moment(d.date, "MM/DD/YYYY").week()
             })
-          console.log(data);
 
           var colorScale = d3.scale.ordinal()
               .domain(['dw', 'rtd', 'bus', 'carpool', 'skate', 'bike', 'walk'])
@@ -176,7 +174,8 @@ app.directive('d3HeatMap', ['d3Service','$window', function(d3Service, $window) 
             var timeLabels = grid.selectAll(".weekLabel")
                 .data(weeks)
                 .enter().append("text")
-                  .text(function(d) { return d; })
+                  .text(function(d) {
+                    return d; })
                   .attr("x", function(d, i) { return i * gridSize; })
                   .attr("y", 0)
                   .style("text-anchor", "middle")
@@ -199,7 +198,9 @@ app.directive('d3HeatMap', ['d3Service','$window', function(d3Service, $window) 
                 .style("fill", function(d) { return colorScale(d.type); })
                 .style("fill-opacity", "50%");
 
-            heatMap.append("title").text(function(d) { return d.type; });
+            heatMap.append("title").text(function(d) {
+              var title = d.date + ' ' + d.type
+              return title; });
 
             // var legend = grid.selectAll(".legend")
             //     .data(colorScale.domain(), function(d) { return d; })
@@ -240,7 +241,6 @@ app.directive('d3StackedBar', ['d3Service','$window', function(d3Service, $windo
     },
     link: function(scope, element, attrs) {
       console.log('hello from stacked bar directive link', element[0]);
-      console.log(attrs);
 
       d3Service.d3().then(function(d3) {
         // our d3 code will go here:
@@ -251,8 +251,8 @@ app.directive('d3StackedBar', ['d3Service','$window', function(d3Service, $windo
         barPadding = parseInt(attrs.barPadding) || 20;
 
         var chart = d3.select(element[0])
-          .append("svg")
-          .style('width', '100%');
+          .append("svg");
+          // .style('width', '100%');
 
         // Browser onresize event
         window.onresize = function() {
@@ -279,16 +279,16 @@ app.directive('d3StackedBar', ['d3Service','$window', function(d3Service, $windo
 
           // remove all previous items before render
           chart.selectAll('*').remove();
-          console.log('chart: ', chart);
 
           // If we don't pass any data, return out of the element
           if (!data) return;
 
           // setup variables
-          var height = d3.select(element[0]).node().offsetHeight - margin;
+          // var height = d3.select(element[0]).node().offsetWidth - margin;
+          var height = 550;
 
           // calculate the width
-          var width = scope.data.length * (barWidth + barPadding);
+          var width = (scope.data.length * (barWidth + barPadding) + (margin * 2));
 
           // xScale
           var x = d3.scale.ordinal()
@@ -304,8 +304,9 @@ app.directive('d3StackedBar', ['d3Service','$window', function(d3Service, $windo
               .domain(['dw', 'rtd', 'bus', 'carpool', 'skate', 'bike', 'walk']);
 
           // set the height based on the calculations above
-          chart.attr('width', width + margin);
-          chart.attr('height', height * 2);
+          chart.attr('width', width + ( 6 * margin));
+          chart.attr('height', height + (2 * margin));
+          chart.attr("transform", "translate(" + margin + "," + margin + ")");
 
           var xAxis = d3.svg.axis()
               .scale(x)
@@ -345,6 +346,7 @@ app.directive('d3StackedBar', ['d3Service','$window', function(d3Service, $windo
                 .attr("x", -16)
                 .attr("dy", "1em")
                 .style("text-anchor", "end")
+                .attr("class", "legend")
                 .text("Trips");
 
             var month = chart.selectAll(".month")
@@ -359,10 +361,13 @@ app.directive('d3StackedBar', ['d3Service','$window', function(d3Service, $windo
                 .attr("width", x.rangeBand())
                 .attr("y", function(d) { return y(d.y1); })
                 .attr("height", function(d) { return y(d.y0) - y(d.y1); })
-                .style("fill", function(d) { return color(d.name); });
+                .style("fill", function(d) { return color(d.name); })
+                .append("title").text(function(d) {
+                  var title = (d.y1 - d.y0) + ' ' + d.name + ' ' + "trips"
+                  return title; });
 
             var legend = chart.selectAll(".legend")
-                .data(color.domain().reverse())
+                .data(['dw', 'rtd', 'bus', 'carpool', 'skate', 'bike', 'walk', ''].reverse())
               .enter().append("g")
                 .attr("class", "legend")
                 .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });

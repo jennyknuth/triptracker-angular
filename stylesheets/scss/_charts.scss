@@ -1,4 +1,6 @@
-
+svg {
+  margin: 0 auto;
+}
 .axis path,
 .axis line {
   fill: none;
@@ -22,13 +24,20 @@ svg  rect.bordered {
 text.mono {
   font-size: 9pt;
   font-family: sans-serif;
-  fill: gray;
+  fill: white;
 }
 
 text.axis-workweek {
-  fill: #000;
+  fill: white;
 }
 
 text.axis-week {
-  fill: #000;
+  fill: white;
+}
+
+.tick {
+  fill: white;
+}
+.legend {
+  fill: white;
 }

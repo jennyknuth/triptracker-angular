@@ -21,6 +21,7 @@ app.filter('colorMap', function () {
 app.filter('tripType', function () {
   return function (input) {
     var type = {
+      "none": "none",
       "rtd": "rtd",
       "carpool": "carpool",
       "bus": "school bus",

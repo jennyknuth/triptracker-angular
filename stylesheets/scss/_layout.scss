@@ -1,55 +1,99 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
 body {
-  background-color: white;
+  background-color: black;
   width: 100%;
+  color: white;
+  .title {
+    margin-left: 100px;
+    margin-top: 100px;
+  }
 }
 
 article {
   margin-left: 100px;
-  width: 50%;
-  padding: 2em;
+  width: 60%;
   position: relative;
   form {
     text-align: right;
+  }
+  .student {
+    clear: both;
+    margin: 1em;
+  }
+  .login {
+    display: block;
+    input {
+      align: right;
+      display: block;
+      margin: .3em;
+    }
   }
   .add {
     text-align: right;
     float: right;
   }
-}
-
-.stacked {
-  text-align: center;
+  .stacked {
+    height: 60vh;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .heat {
+    margin: 2em 0;
+  }
+  .show {
+    margin-left: 0;
+    padding: 3em;
+    color: black;
+    width: 500px;
+    background-color: white;
+  }
 }
 
 .container {
   position: relative;
-}
+  width: 100%;
+  height: 100vh;
+  .calendar {
+    width: 14vw * 7;
+    margin: 0 auto;
+    margin: .5vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    .day {
+      padding: .5em;
+      border-radius: 9px;
+      font-size: 11px;
+      display: block;
+      float: left;
+      height: 14vw;
+      width: 14vw;
+      background-color: $transparentGray;
+      border: 2px solid white;
+      input {
+        border: 1px solid white;
+        box-shadow: none;
 
-.calendar {
-  margin: 1vw;
-  position: absolute;
-  top: 0;
-  left: 0;
+      }
+    }
+    .trip-type {
+      vertical-align: top;
+      width: 45%;
+      display: inline-block;
+    }
+  }
   .background {
     background-color: white;
-  }
-  .day {
-    padding: .5em;
     border-radius: 9px;
-    font-size: 10px;
-    display: block;
-    float: left;
-    height: 13vw;
-    width: 13vw;
-    background-color: $transparentGray;
-    border: 2px solid white;
-    // background-color: mix($red, $yellow);
   }
-  .trip-type {
-    vertical-align: top;
-    width: 45%;
-    display: inline-block;
-  }
+}
+
+.right {
+  float: right;
 }
 
 .left {

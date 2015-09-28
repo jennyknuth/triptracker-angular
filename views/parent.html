@@ -1,19 +1,19 @@
 <article>
 
-  <a href="#/parent/{{parent.userId}}/new">+ add a student tracker (go to new.html)</a>
-  <h2>add a student to your account</h2>
-  <form ></form>
+  <h2 class="right"><a href="#/parent/{{parent.userId}}/new">+ add a student tracker</a></h2>
+  <a href="/#/"><span class="backArrow">&#8592</span></a>
+  <div class="student show" ng-repeat="student in students">
+    <h2 class="left"><a href="#/{{student.userId}}">{{student.name}}</a></h2>
+    <p class="right"><a href="#/{{student.userId}}/edit">+ add/edit trips for {{student.name}}</a></p>
 
-  <li>get student array, display each associated student</li>
-
-  <div ng-repeat="student in parent.students">
-    hey
-    <a href="#/user/{{student.userId}}">{{student}}</a>
+    <div class="heat">
+      <div d3-heat-map data="student.userTrips"></div>
+    </div>
+    <div>
+      <p>{{student.userTrips.length}} total trips</p>
+      <p ng-show="student.powerDistance > 0">total distance: {{student.powerDistance | number:1 }} miles</p>
+      <p>Reward earned: {{student.reward | currency}}</p>
+    </div>
   </div>
 
-  <li>link each student to their show page (from there can add/edit trips)</li>
-
-  <li>add/edit trips in bulk for all students? (stretch)</li>
-
-  <li>enable student to set up their own account (stretch)</li>
 </article>
