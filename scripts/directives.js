@@ -107,7 +107,7 @@ app.directive('d3HeatMap', ['d3Service','$window', function(d3Service, $window) 
 
         var margin = { top: 20, right: 0, bottom: 20, left: 20 },
             width = 500 - margin.left - margin.right,
-            height = 80 - margin.top - margin.bottom,
+            height = 100 - margin.top - margin.bottom,
             gridSize = Math.floor(width / 38),
             legendElementWidth = gridSize*5,
             colors = ["#651FFF", "#FF1744", "#FFD600", "#D500F9", "#FF6D00", "#64DD17", "#00B8D4"],
@@ -115,9 +115,11 @@ app.directive('d3HeatMap', ['d3Service','$window', function(d3Service, $window) 
             weeks = ["A", "", "S", "", "", "", "O", "", "", "", "N", "", "", "", "D", "", "", "", "J", "", "", "", "F", "", "", "", "M", "", "", "", "A", "", "", "", "M", "", "", ""];
 
         var grid = d3.select(element[0])
-          .append("svg")
-          .style("width", '100%')
-          .style('height', gridSize * 6);
+            .append("svg")
+            .attr("width", width + margin.right + margin.left)
+            .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
         // Browser onresize event
         window.onresize = function() {
@@ -155,20 +157,13 @@ app.directive('d3HeatMap', ['d3Service','$window', function(d3Service, $window) 
               .domain(['dw', 'rtd', 'bus', 'carpool', 'skate', 'bike', 'walk'])
               .range(colors);
 
-            // var svg = d3.select("#chart").append("svg")
-            //     .attr("width", width + margin.left + margin.right)
-            //     .attr("height", height + margin.top + margin.bottom)
-            //     .attr("class", "svg-chart")
-            //     .append("g")
-            //     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
             var dayLabels = grid.selectAll(".dayLabel")
                 .data(days)
                 .enter().append("text")
                   .text(function (d) { return d; })
                   .attr("x", 0)
                   .attr("y", function (d, i) { return i * gridSize; })
-                  .style("text-anchor", "end")
+                  .style("text-anchor", "middle")
                   .attr("transform", "translate(-6," + gridSize / 1.5 + ")")
                   .attr("class", "mono");
 
@@ -246,14 +241,19 @@ app.directive('d3StackedBar', ['d3Service','$window', function(d3Service, $windo
       d3Service.d3().then(function(d3) {
         // our d3 code will go here:
 
-        var margin = parseInt(attrs.margin) || 20,
-        // margin = {top: 20, right: 20, bottom: 30, left: 40},
-        barWidth = parseInt(attrs.barWidth) || 80,
-        barPadding = parseInt(attrs.barPadding) || 20;
+        // var margin = parseInt(attrs.margin) || 60,
+        var margin = {top: 80, right: 150, bottom: 30, left: 50},
+        barWidth = parseInt(attrs.barWidth) || 40,
+        barPadding = parseInt(attrs.barPadding) || 20,
+        width = (650 - margin.left - margin.right),
+        height = (600 - margin.top - margin.bottom);
 
         var chart = d3.select(element[0])
-          .append("svg");
-          // .style('width', '100%');
+          .append("svg")
+          .attr("width", width + margin.right + margin.left)
+          .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
         // Browser onresize event
         window.onresize = function() {
@@ -286,14 +286,15 @@ app.directive('d3StackedBar', ['d3Service','$window', function(d3Service, $windo
 
           // setup variables
           // var height = d3.select(element[0]).node().offsetWidth - margin;
-          var height = 550;
+          // var height = 550;
 
           // calculate the width
-          var width = (scope.data.length * (barWidth + barPadding) + (margin * 2));
+          // var width = (scope.data.length * (barWidth + barPadding) - (margin * 4));
 
           // xScale
           var x = d3.scale.ordinal()
-                .rangeRoundBands([0, width], .1);
+                .rangeRoundBands([0, width], .15);
+                // .domain(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']);
 
           // yScale
           var y = d3.scale.linear()
@@ -304,25 +305,33 @@ app.directive('d3StackedBar', ['d3Service','$window', function(d3Service, $windo
               .range(["#651FFF", "#FF1744", "#FFD600", "#D500F9", "#FF6D00", "#64DD17", "#00B8D4"])
               .domain(['dw', 'rtd', 'bus', 'carpool', 'skate', 'bike', 'walk']);
 
-          // set the height based on the calculations above
-          chart.attr('width', width + ( 6 * margin));
-          chart.attr('height', height + (2 * margin));
-          chart.attr("transform", "translate(" + margin + "," + margin + ")");
+          var monthName = {
+                0: "Jan",
+                1: "Feb",
+                2: "Mar",
+                3: "Apr",
+                4: "May",
+                5: "Jun",
+                6: "Jul",
+                7: "Aug",
+                8: "Sep",
+                9: "Oct",
+                10: "Nov",
+                11: "Dec"
+              }
+          var formatMonth = function(d) {
+              return monthName[d];
+              }
 
           var xAxis = d3.svg.axis()
               .scale(x)
-              .orient("bottom");
+              .orient("bottom")
+              .tickFormat(formatMonth);
 
           var yAxis = d3.svg.axis()
               .scale(y)
               .orient("left")
               .tickFormat(d3.format("d"));
-
-          // var svg = d3.select("body").append("svg")
-              // .attr("width", width + margin.left + margin.right)
-              // .attr("height", height + margin.top + margin.bottom)
-            // .append("g")
-              // .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
             data.forEach(function(d) {
               var y0 = 0;
@@ -344,13 +353,14 @@ app.directive('d3StackedBar', ['d3Service','$window', function(d3Service, $windo
                 .call(yAxis)
               .append("text")
                 .attr("transform", "rotate(-90)")
-                .attr("x", -16)
-                .attr("dy", "1em")
-                .style("text-anchor", "end")
+                .attr("x", 16)
+                // .attr("dy", ".5em")
+                .style("text-anchor", "start")
                 .attr("class", "legend")
                 .text("Trips");
 
-            var month = chart.selectAll(".month")
+            var month = chart.append("g")
+                .selectAll(".month")
                 .data(data)
               .enter().append("g")
                 .attr("class", "g")

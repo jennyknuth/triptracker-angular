@@ -1,9 +1,16 @@
 *, *:before, *:after {
   box-sizing: border-box;
 }
+html {
+  background-image: linear-gradient(black, darkgray);
+  background-repeat: round round;
+  height: 200%;
+  width: 100%;
+}
 
 body {
-  background-color: black;
+
+  // background-color: black;
   width: 100%;
   color: white;
   .title {
@@ -73,7 +80,7 @@ article {
       height: 14vw;
       width: 14vw;
       background-color: $transparentGray;
-      border: 2px solid white;
+      border: 1px solid white;
       input {
         border: 1px solid white;
         box-shadow: none;
@@ -102,4 +109,20 @@ article {
 
 .clear {
   clear: both;
+}
+
+.pink {
+  color: hotpink;
+}
+
+.blue {
+  color: $blue;
+}
+
+.red {
+  color: $red;
+}
+
+.purple {
+  color: $purple;
 }

@@ -48,8 +48,13 @@ table {
 *, *:before, *:after {
   box-sizing: border-box; }
 
+html {
+  background-image: linear-gradient(black, darkgray);
+  background-repeat: round round;
+  height: 200%;
+  width: 100%; }
+
 body {
-  background-color: black;
   width: 100%;
   color: white; }
   body .title {
@@ -108,7 +113,7 @@ article {
       height: 14vw;
       width: 14vw;
       background-color: rgba(99, 99, 99, 0.5);
-      border: 2px solid white; }
+      border: 1px solid white; }
       .container .calendar .day input {
         border: 1px solid white;
         box-shadow: none; }
@@ -128,6 +133,18 @@ article {
 
 .clear {
   clear: both; }
+
+.pink {
+  color: hotpink; }
+
+.blue {
+  color: #1565C0; }
+
+.red {
+  color: #c62828; }
+
+.purple {
+  color: #7B1FA2; }
 
 html {
   font-size: 1em; }
@@ -196,9 +213,9 @@ svg rect.bordered {
   stroke-width: 2px; }
 
 text.mono {
-  font-size: 9pt;
+  font-size: 8pt;
   font-family: sans-serif;
-  fill: white; }
+  fill: darkgray; }
 
 text.axis-workweek {
   fill: white; }
