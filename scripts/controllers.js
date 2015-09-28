@@ -186,8 +186,9 @@ app.controller("CalendarController", ['$scope', '$routeParams', '$http', '$route
   // option 2: if "none", need new, any other, modify
   $scope.renewAmTrip = function (amObj) {
     console.log('amObj', amObj);
-    if (amObj.am !== 'none'){
-      console.log('equals none!');
+    var dayCounter = []
+    dayCounter.push(amObj.value)
+    if (amObj.am !== 'none' && dayCounter.indexOf(amObj.value) < 0){ // need to also add the criteria that previous value was also none
       $scope.userTrips.length += 1;
     }
     // console.log('day coming in to renew', dayObj);
@@ -196,8 +197,11 @@ app.controller("CalendarController", ['$scope', '$routeParams', '$http', '$route
     $http.post('http://localhost:8080/api/trips/user/' + amObj.userId, amTrip)
     // console.log('day after post', dayObj);
   }
+
   $scope.renewPmTrip = function (pmObj) {
-    if (pmObj.pm !== 'none'){
+    var dayCounter = []
+    dayCounter.push(pmObj.value)
+    if (pmObj.pm !== 'none' && dayCounter.indexOf(pmObj.value) < 0){
       $scope.userTrips.length += 1;
     }
     var pmTrip = calendarservice.makePmTrip(pmObj)

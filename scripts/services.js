@@ -147,7 +147,6 @@ app.factory('calendarservice', [ function ( ) {
   }
 
   calendarservice.buildDayObj = function (dayObj, trip, date) {
-    console.log(dayObj);
     dayObj.date = date;
     dayObj.userId = trip.userId;
     dayObj.distance = trip.distance; // need to pass these back to database
