@@ -1,6 +1,7 @@
 // returns the Trip resource for full Trip CRUD
+var API = "http://infinite-bayou-4599.herokuapp.com/api";
 app.factory('Trip', ["$resource", function ($resource) {
-    return $resource('http://localhost:8080/api/trips/:id', { id: '@_id' }, {
+    return $resource(API + '/trips/:id', { id: '@_id' }, {
     update: {
       method: 'PUT' // this method issues a PUT request
     }
@@ -9,7 +10,7 @@ app.factory('Trip', ["$resource", function ($resource) {
 
 // returns the UserTrip resource
 app.factory('UserTrip', ["$resource", function ($resource) {
-    return $resource('http://localhost:8080/api/trips/user/:id', { id: '@userId'}, {
+    return $resource(API + '/trips/user/:id', { id: '@userId'}, {
       send: {
         method: 'POST' // this method issues a POST request
       }
@@ -18,7 +19,7 @@ app.factory('UserTrip', ["$resource", function ($resource) {
 
 // returns the User resource
 app.factory('User', ["$resource", function ($resource) {
-    return $resource('http://localhost:8080/api/users/:id', {id: '@userId'});
+    return $resource(API + '/users/:id', {id: '@userId'});
 }]);
 
 // dataService calculates data
