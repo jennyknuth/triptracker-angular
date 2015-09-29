@@ -1,6 +1,6 @@
 // returns the Trip resource for full Trip CRUD
-// var API = "http://infinite-bayou-4599.herokuapp.com/api";
-var API = "localhost:8080/api";
+var API = "http://infinite-bayou-4599.herokuapp.com/api";
+// var API = "localhost:8080/api";
 app.factory('Trip', ["$resource", function ($resource) {
     return $resource(API + '/trips/:id', { id: '@_id' }, {
     update: {
@@ -216,7 +216,7 @@ app.factory('calendarservice', [ function ( ) {
 // // userservice gets all users
 // app.factory('userservice', ["$resource", function ($resource) {
 //   // console.log("id?", $routeParams.id);
-//     return $resource('http://localhost:8080/api/users/')
+//     return $resource(API + '/api/users/')
 // }]);
 //
 //

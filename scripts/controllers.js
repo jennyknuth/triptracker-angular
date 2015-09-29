@@ -1,10 +1,11 @@
-app.controller("HomeController", ['$scope', '$route', 'User', 'Trip', 'dataservice', function($scope, $route, User, Trip, dataservice){
+app.controller("HomeController", ['$scope', '$route', '$location', 'User', 'Trip', 'dataservice', function($scope, $route, $location, User, Trip, dataservice){
   console.log('hello from HomeController');
   $scope.parent = {}
 
   $scope.login = function () {
     $scope.parent.userId = 99;
     window.localStorage.setItem("userId", "99");
+    $location.path('/');
   }
 
   $scope.parent.userId = window.localStorage.getItem("userId");
@@ -18,6 +19,7 @@ app.controller("HomeController", ['$scope', '$route', 'User', 'Trip', 'dataservi
   $scope.trips = Trip.query( function () { //get data for home/splash page here!
     console.log('all trips:', $scope.trips);
     $scope.totalDistance = dataservice.totalDistance($scope.trips)
+    $scope.studentPowerDistance = dataservice.totalDistance($scope.trips)
 
     // var testTrips = []
     // for (var i = 0; i < 100; i++) {
@@ -198,10 +200,10 @@ app.controller("CalendarController", ['$scope', '$routeParams', '$http', '$route
     } else if (amObj.am === 'none'){
       $scope.userTrips.length -= 1
     }
-    console.log('day coming in to renew', dayObj);
+    // console.log('day coming in to renew', dayObj);
     var amTrip = calendarservice.makeAmTrip(amObj)
     // console.log('amTrip to post', amTrip);
-    $http.post('http://localhost:8080/api/trips/user/' + amObj.userId, amTrip)
+    $http.post(API+ '/trips/user/' + amObj.userId, amTrip)
     // console.log('day after post', dayObj);
   }
 
@@ -221,7 +223,7 @@ app.controller("CalendarController", ['$scope', '$routeParams', '$http', '$route
 
     var pmTrip = calendarservice.makePmTrip(pmObj)
     // console.log('pmTrip to post', pmTrip);
-    $http.post('http://localhost:8080/api/trips/user/' + pmObj.userId, pmTrip)
+    $http.post(API + '/trips/user/' + pmObj.userId, pmTrip)
   }
 
   $scope.deleteTrip = function (id) {
