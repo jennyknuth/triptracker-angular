@@ -1,6 +1,6 @@
 <article>
-  <h2>{{trips.length | number : 0 }} fewer car trips</h2>
-  <h2>{{totalDistance | number : 0 }} miles on student power</h2>
+  <h2 ng-show="trips.length">{{trips.length | number : 0 }} fewer car trips</h2>
+  <h2 ng-show="totalDistance">{{totalDistance | number : 0 }} miles on student power</h2>
   <div class="add">
     <nav>
       <a href="/#/about"><h3 class="alignLeft">ABOUT</h3></a>
