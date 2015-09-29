@@ -21,6 +21,10 @@
       <h2><a href="/#/parent/{{parent.userId}}">Your Dashboard</a></h2p>
     </div>
   </div>
+  <div class="gif" ng-hide="trips.length">
+    <iframe src="//giphy.com/embed/yAxdBLEwbhcty" width="360" height="336" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <p>...fetching data!</p>
+  </div>
 
   <div class="stackedOut">
     <div class="stacked" d3-stacked-bar on-click="showDetailPanel(item)" data="monthData"></div>

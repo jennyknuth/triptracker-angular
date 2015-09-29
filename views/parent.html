@@ -6,8 +6,8 @@
     <h2 class="left"><a href="#/{{student.userId}}">{{student.name}}</a></h2>
     <p class="right"><a href="#/{{student.userId}}/edit">+ add/edit trips for {{student.name}}</a></p>
 
-    <div class="heat">
-      <div d3-heat-map data="student.userTrips"></div>
+    <div>
+      <div class="heat" d3-heat-map data="student.userTrips"></div>
     </div>
     <div>
       <p>{{student.userTrips.length}} total trips</p>

@@ -1,6 +1,6 @@
 // returns the Trip resource for full Trip CRUD
 var API = "http://infinite-bayou-4599.herokuapp.com/api";
-// var API = "localhost:8080/api";
+// var API = "http://localhost:8080/api";
 app.factory('Trip', ["$resource", function ($resource) {
     return $resource(API + '/trips/:id', { id: '@_id' }, {
     update: {
