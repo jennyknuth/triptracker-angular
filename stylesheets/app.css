@@ -67,7 +67,7 @@ table {
   box-sizing: border-box; }
 
 html {
-  background: linear-gradient(black, #5e5d66) no-repeat center center fixed;
+  background: linear-gradient(black, #34403E) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -83,9 +83,14 @@ body {
 nav h3 {
   line-height: 1.6em; }
 
+header {
+  float: left;
+  display: block;
+  width: 50%; }
+
 article {
   margin-left: 100px;
-  width: 60%; }
+  width: 65%; }
   article form {
     text-align: right; }
   article .student {

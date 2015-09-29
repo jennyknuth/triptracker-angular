@@ -24,10 +24,15 @@ nav {
     line-height: 1.6em;
   }
 }
+header {
+  float: left;
+  display: block;
+  width: 50%
+}
 
 article {
   margin-left: 100px;
-  width: 60%;
+  width: 65%;
   form {
     text-align: right;
   }

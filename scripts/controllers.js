@@ -5,7 +5,7 @@ app.controller("HomeController", ['$scope', '$route', '$location', 'User', 'Trip
   $scope.login = function () {
     $scope.parent.userId = 99;
     window.localStorage.setItem("userId", "99");
-    $location.path('/#/parent/99');
+    $location.path('/parent/99');
   }
 
   $scope.parent.userId = window.localStorage.getItem("userId");
