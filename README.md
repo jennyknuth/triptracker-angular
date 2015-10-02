@@ -10,4 +10,6 @@ On the front end, a thick AngularJS client consumes the API and allows users to 
 
 Charts are D3.js custom directives in AngularJS. 
 
-![](TTStackedBar.png =300x300) ![](TTCalendar.png =300x300) ![](ParentIndex.png =300x300)
+<img src="TTStackedBar.png =300x300" width="200" height="200" />
+<img src="TTCalendar.png =300x300" width="200" height="200" />
+<img src="ParentIndex.png =300x300" width="200" height="200" />
