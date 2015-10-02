@@ -1,6 +1,6 @@
 #Trip Tracker Online
 
-A prototype web application for [Boulder Valley School District's Trip Tracker program] (http://www.bvsd.org/transportation/toschool/tracker/Pages/default.aspx) that rewards kids for taking alternative transportation to school.
+A prototype web application for [Boulder Valley School District's Trip Tracker program] (http://www.bvsd.org/transportation/toschool/tracker/Pages/default.aspx) to reward kids for taking alternative transportation to school.
 
 [Trip Tracker Online] (http://development.triptracker.divshot.io/#/) aims to provide a fun and engaging way for students to record their trips and chart their progress online. It uses strategic color coding and data-driven graphics. See a live demo here: [http://development.triptracker.divshot.io/#/](http://development.triptracker.divshot.io/#/)
 
