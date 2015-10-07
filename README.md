@@ -1,6 +1,6 @@
 #Trip Tracker Online
 
-A prototype web application for [Boulder Valley School District's Trip Tracker program] (http://www.bvsd.org/transportation/toschool/tracker/Pages/default.aspx) that rewards kids for taking alternative transportation to school.
+A prototype web application for [Boulder Valley School District's Trip Tracker program] (http://www.bvsd.org/transportation/toschool/tracker/Pages/default.aspx) designed to reward kids taking alternative transportation to school.
 
 [Trip Tracker Online] (http://development.triptracker.divshot.io/#/) aims to provide a fun and engaging way for students to record their trips and chart their progress online. It uses strategic color coding and data-driven graphics. See a live demo here: [http://development.triptracker.divshot.io/#/](http://development.triptracker.divshot.io/#/)
 
@@ -10,4 +10,7 @@ On the front end, a thick AngularJS client consumes the API and allows users to 
 
 Charts are D3.js custom directives in AngularJS. 
 
-!(TTStackedBar.png) !(TTCalendar.png) !(ParentIndex.png)
+<img src="TTStackedBar.png" width="250" height="250" />
+<img src="ParentIndex.png" width="250" height="250" />
+<img src="TripTrackerCalendar.png" width="250" height="250" />
+
