@@ -235,7 +235,7 @@ app.directive('d3StackedBar', ['d3Service','$window', function(d3Service, $windo
       onClick: '&'  // parent execution binding
     },
     link: function(scope, element, attrs) {
-      console.log('hello from stacked bar directive link', element[0]);
+      console.log('hello from stacked bar directive link', attrs.data);
 
       d3Service.d3().then(function(d3) {
         // our d3 code will go here:
@@ -327,10 +327,13 @@ app.directive('d3StackedBar', ['d3Service','$window', function(d3Service, $windo
               return d;
               }
 
+          var formatData;
+          attrs.data === "schoolData" ? formatData = formatSchool : formatData = formatMonth
+
           var xAxis = d3.svg.axis()
               .scale(x)
               .orient("bottom")
-              .tickFormat(formatSchool);
+              .tickFormat(formatData); // choose which data set to format based on attrs.data
 
           var yAxis = d3.svg.axis()
               .scale(y)
@@ -343,8 +346,9 @@ app.directive('d3StackedBar', ['d3Service','$window', function(d3Service, $windo
               d.total = d.types[d.types.length - 1].y1;
             });
 
-            //if schoolData:
-            data.sort(function(a, b) { return b.total - a.total; });
+            if (attrs.data === "schoolData") {
+              data.sort(function(a, b) { return b.total - a.total; });
+            }
 
             x.domain(data.map(function(d) {return d.column}));
 

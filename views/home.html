@@ -3,6 +3,13 @@
     <h2>BVSD totals: </h2>
     <h3 ng-show="trips.length">{{trips.length | number : 0 }} fewer car trips</h3>
     <h3 ng-show="totalDistance">{{totalDistance | number : 0 }} miles on student power</h3>
+    <h3 ng-show="trips.length">
+      Show trip data by:
+        <select ng-model="dataType" ng-init="dataType = 'month'">
+          <option value="month">month</option>
+          <option value="school">school</option>
+        </select>
+    </h3>
   </header>
   <div class="add">
     <nav>
@@ -27,11 +34,11 @@
     <p>...fetching data!</p>
   </div>
 
-  <!-- <div class="stackedOut">
+  <div class="stackedOut" ng-show="dataType === 'month'">
     <div class="stacked" d3-stacked-bar on-click="showDetailPanel(item)" data="monthData"></div>
-  </div> -->
+  </div>
 
-  <div class="stackedOut">
+  <div class="stackedOut" ng-show="dataType === 'school'">
     <div class="stacked" d3-stacked-bar on-click="showDetailPanel(item)" data="schoolData"></div>
   </div>
 

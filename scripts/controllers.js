@@ -29,11 +29,12 @@ app.controller("HomeController", ['$scope', '$route', '$location', 'User', 'Trip
     $scope.monthData = []
     $scope.schoolData = []
 
+    // get month data
     for (var i = 0; i < 12; i++) {
       var tripsArr = dataservice.getMonthTrips($scope.trips, i)
       if (tripsArr.length > 0) {
         var monthTripObj = dataservice.countTripTypes(tripsArr)
-        monthTripObj.col = i
+        monthTripObj.column = i
         $scope.monthData.push(monthTripObj)
       }
     }
@@ -59,6 +60,7 @@ app.controller("HomeController", ['$scope', '$route', '$location', 'User', 'Trip
                   'Southern Hills',
                   'Summit']
 
+    // get school data
     for (var i = 0; i < schools.length; i++) {
       var tripsArr = dataservice.getSchoolTrips($scope.trips, schools[i])
       if (tripsArr.length > 0) {
@@ -66,13 +68,9 @@ app.controller("HomeController", ['$scope', '$route', '$location', 'User', 'Trip
         schoolTripObj.column = schools[i]
         $scope.schoolData.push(schoolTripObj)
       }
-        console.log($scope.schoolData);
     }
-
-
-    console.log($scope.schoolData);
-  console.log($scope.monthData);
   })
+
   $scope.newUser = function (user) {
     console.log('new user!', user);
     var newUser = new User();

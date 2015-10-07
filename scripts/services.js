@@ -55,7 +55,7 @@ app.factory('dataservice', ["$routeParams", "User", function ($routeParams, User
 
   dataservice.getSchoolTrips = function (trips, school) {
     return trips.filter(function (trip) {
-      if (trip.school) {
+      if (trip.school) { // start here!!
         return (trip.school === school)
       }
     })
