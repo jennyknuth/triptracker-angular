@@ -1,16 +1,16 @@
-$red: #c62828;
+$red: #FF1744;
 $rtd: $red;
-$purple: #7B1FA2;
+$purple: #D500F9;
 $carpool: $purple;
-$yellow: #FFC107;
+$yellow: #FFD600;
 $schoolBus: $yellow;
 $indigo: #651FFF;
 $driveDrop: $indigo;
-$blue: #1565C0;
+$blue: #00B8D4;
 $walk: $blue;
-$green: #00796B;
+$green: #64DD17;
 $bike: $green;
-$orange: #EF6C00;
+$orange: #FF6D00;
 $skateScoot: $orange;
 $transparentGray: rgba(99,99,99,.5);
 $colorOne: #311417;
@@ -38,4 +38,12 @@ $colorTwo: #34403E;
 
 .yellow {
   color: $yellow;
+}
+
+.indigo {
+  color: $indigo;
+}
+
+.orange {
+  color: $orange;
 }

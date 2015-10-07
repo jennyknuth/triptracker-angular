@@ -1,15 +1,18 @@
 <article>
   <header>
-    <h2>BVSD totals: </h2>
-    <h3 ng-show="trips.length">{{trips.length | number : 0 }} fewer car trips</h3>
-    <h3 ng-show="totalDistance">{{totalDistance | number : 0 }} miles on student power</h3>
-    <h3 ng-show="trips.length">
-      Show trip data by:
-        <select ng-model="dataType" ng-init="dataType = 'month'">
-          <option value="month">month</option>
-          <option value="school">school</option>
-        </select>
-    </h3>
+    <h2><span>BVSD</span> totals: </h2>
+    <h3 ng-show="trips.length"><span class="green">{{trips.length | number : 0 }}</span> fewer car trips</h3>
+    <h3 ng-show="totalDistance"><span class="blue">{{totalDistance | number : 0 }}</span> miles on student power</h3>
+    <div class='choose'>
+      <h3 ng-show="trips.length">
+        Show <span>BVSD</span> trip data by:
+          <select ng-model="dataType" ng-init="dataType = 'month'">
+            <option value="month">month</option>
+            <option value="school">school</option>
+          </select>
+      </h3>
+    </div>
+
   </header>
   <div class="add">
     <nav>
@@ -26,7 +29,7 @@
       </form>
     </div>
     <div ng-show="parent.userId">
-      <h2><a href="/#/parent/{{parent.userId}}">Your Dashboard</a></h2p>
+      <h2 ><a href="/#/parent/{{parent.userId}}">Your Dashboard</a></h2p>
     </div>
   </div>
   <div class="gif" ng-hide="trips.length">

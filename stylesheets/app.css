@@ -46,22 +46,28 @@ table {
   border-spacing: 0; }
 
 .green {
-  color: #00796B; }
+  color: #64DD17; }
 
 .pink {
   color: hotpink; }
 
 .blue {
-  color: #1565C0; }
+  color: #00B8D4; }
 
 .red {
-  color: #c62828; }
+  color: #FF1744; }
 
 .purple {
-  color: #7B1FA2; }
+  color: #D500F9; }
 
 .yellow {
-  color: #FFC107; }
+  color: #FFD600; }
+
+.indigo {
+  color: #651FFF; }
+
+.orange {
+  color: #FF6D00; }
 
 *, *:before, *:after {
   box-sizing: border-box; }
@@ -220,6 +226,16 @@ form {
   font-size: 14px;
   padding: .3em;
   margin-bottom: .2em; }
+
+.choose {
+  margin: 2em; }
+
+select {
+  font-size: 22px;
+  font-weight: 300;
+  border: none;
+  color: white;
+  background-color: transparent; }
 
 .axis path,
 .axis line {

@@ -61,16 +61,6 @@ app.factory('dataservice', ["$routeParams", "User", function ($routeParams, User
     })
   }
 
-  // dataservice.typeTotal = function (trips) {
-  //   var typeCount = trips.reduce(function (obj, trip) {
-  //     if (trip.type) {
-  //       obj[trip.type] = (obj[trip.type] || 0) + 1;
-  //       return obj
-  //     }
-  //   }, {})
-  //   return typeCount
-  // }
-
   dataservice.studentPowerDistance = function (trips) {
     // console.log(trips);
     var sum = 0
