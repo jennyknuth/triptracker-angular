@@ -53,15 +53,23 @@ app.factory('dataservice', ["$routeParams", "User", function ($routeParams, User
    })
   }
 
-  dataservice.typeTotal = function (trips) {
-    var typeCount = trips.reduce(function (obj, trip) {
-      if (trip.type) {
-        obj[trip.type] = (obj[trip.type] || 0) + 1;
-        return obj
+  dataservice.getSchoolTrips = function (trips, school) {
+    return trips.filter(function (trip) {
+      if (trip.school) {
+        return (trip.school === school)
       }
-    }, {})
-    return typeCount
+    })
   }
+
+  // dataservice.typeTotal = function (trips) {
+  //   var typeCount = trips.reduce(function (obj, trip) {
+  //     if (trip.type) {
+  //       obj[trip.type] = (obj[trip.type] || 0) + 1;
+  //       return obj
+  //     }
+  //   }, {})
+  //   return typeCount
+  // }
 
   dataservice.studentPowerDistance = function (trips) {
     // console.log(trips);

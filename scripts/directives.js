@@ -241,7 +241,7 @@ app.directive('d3StackedBar', ['d3Service','$window', function(d3Service, $windo
         // our d3 code will go here:
 
         // var margin = parseInt(attrs.margin) || 60,
-        var margin = {top: 80, right: 150, bottom: 30, left: 50},
+        var margin = {top: 80, right: 150, bottom: 200, left: 50},
         barWidth = parseInt(attrs.barWidth) || 40,
         barPadding = parseInt(attrs.barPadding) || 20,
         width = (650 - margin.left - margin.right),
@@ -318,14 +318,19 @@ app.directive('d3StackedBar', ['d3Service','$window', function(d3Service, $windo
                 10: "Nov",
                 11: "Dec"
               }
+
           var formatMonth = function(d) {
               return monthName[d];
+              }
+
+          var formatSchool = function(d) {
+              return d;
               }
 
           var xAxis = d3.svg.axis()
               .scale(x)
               .orient("bottom")
-              .tickFormat(formatMonth);
+              .tickFormat(formatSchool);
 
           var yAxis = d3.svg.axis()
               .scale(y)
@@ -338,14 +343,23 @@ app.directive('d3StackedBar', ['d3Service','$window', function(d3Service, $windo
               d.total = d.types[d.types.length - 1].y1;
             });
 
-            x.domain(data.map(function(d) {return d.month}));
+            //if schoolData:
+            data.sort(function(a, b) { return b.total - a.total; });
+
+            x.domain(data.map(function(d) {return d.column}));
 
             y.domain([0, d3.max(data, function(d) { return d.total; })]);
 
             chart.append("g")
                 .attr("class", "x axis")
                 .attr("transform", "translate(0," + height + ")")
-                .call(xAxis);
+                .call(xAxis)
+              .selectAll("text")
+                .attr("y", 0)
+                .attr("x", -9)
+                .attr("dy", ".35em")
+                .attr("transform", "rotate(-90)")
+                .style("text-anchor", "end");
 
             chart.append("g")
                 .attr("class", "y axis")
@@ -358,14 +372,14 @@ app.directive('d3StackedBar', ['d3Service','$window', function(d3Service, $windo
                 .attr("class", "legend")
                 .text("Trips");
 
-            var month = chart.append("g")
-                .selectAll(".month")
+            var column = chart.append("g")
+                .selectAll(".column")
                 .data(data)
               .enter().append("g")
                 .attr("class", "g")
-                .attr("transform", function(d) { return "translate(" + x(d.month) + ",0)"; });
+                .attr("transform", function(d) { return "translate(" + x(d.column) + ",0)"; });
 
-            month.selectAll("rect")
+            column.selectAll("rect")
                 .data(function(d) { return d.types; })
               .enter().append("rect")
                 .attr("width", x.rangeBand())
