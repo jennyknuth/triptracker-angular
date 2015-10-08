@@ -52,7 +52,6 @@ app.controller("HomeController", ['$scope', '$route', '$location', 'User', 'Trip
                   'University Hill',
                   'Whittier',
                   'Horizons',
-                  'Monarch',
                   'Casey',
                   'Centennial',
                   'Manhattan',

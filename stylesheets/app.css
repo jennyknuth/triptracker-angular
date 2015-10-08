@@ -229,13 +229,12 @@ form {
 
 .choose {
   margin: 2em; }
-
-select {
-  font-size: 22px;
-  font-weight: 300;
-  border: none;
-  color: white;
-  background-color: transparent; }
+  .choose select {
+    font-size: 22px;
+    font-weight: 300;
+    border: none;
+    color: white;
+    background-color: transparent; }
 
 .axis path,
 .axis line {
